@@ -3,5 +3,5 @@ author: pongy20, marcelm19t
 version: 1.0.1
 main: de.plots.main.main
 commands:
-     create:
+     plot:
           description: This Command is just for test

@@ -16,8 +16,9 @@ public class main extends JavaPlugin {
 		registerEvents();
 		registerCommands();
 		
-		mysql.createTable();
 		mysql.connect();
+		mysql.createTable();
+		
 		
 		System.out.println("[Plots] wurde gestartet!");
 	}
