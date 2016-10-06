@@ -20,7 +20,7 @@ public class mysql {
 		if (!isConnected()) {
 			try {
 				con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
-				Bukkit.getConsoleSender().sendMessage("§c[MYSQL Database] wurde verbunden!");
+				Bukkit.getConsoleSender().sendMessage("§2[MYSQL Database] wurde verbunden!");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

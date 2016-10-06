@@ -13,6 +13,7 @@ import de.plots.generation.PlotGeneration;
 import de.plots.generation.SinglePlotGeneration;
 import de.plots.generation.WorldGeneration;
 import de.plots.main.main;
+import de.plots.mysql.plotmysql;
 import de.plots.utils.WorldTeleportation;
 
 public class PlotCommand implements CommandExecutor {
@@ -41,6 +42,31 @@ public class PlotCommand implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("createplots")) {
 				if (sender.hasPermission("plot.command.createplots")) {
 					PlotGeneration.generatePlots(((Player) sender).getWorld(), ((Player) sender).getLocation(), main.plotsize + main.waysize, 3);
+				}
+			} else if (args[0].equalsIgnoreCase("claim")) {
+				if (sender.hasPermission("plot.command.claim")) {
+					plotmysql.claimPlot((Player) sender);
+				}
+			} else if (args[0].equalsIgnoreCase("unclaim")) {
+				if (sender.hasPermission("plot.command.unclaim")) {
+					
+				}
+			} else if (args[0].equalsIgnoreCase("getInfo")) {
+				if (sender.hasPermission("plot.command.getid")) {
+					Player p = (Player) sender;
+					int plotid = plotmysql.getPlotID(p);
+					String owner = plotmysql.getPlotOwner(plotid);
+					if (owner == null) {
+						owner = "Kein Besitzer";
+					}
+					if (plotid != -1) {
+						p.sendMessage("§c--- PlotInformationen ---");
+						p.sendMessage("§9ID: §c" + plotid);
+						p.sendMessage("§9Owner: §c" + owner);
+					} else {
+						p.sendMessage("§cDu stehst auf keinem Plot!");
+					}
+					
 				}
 			}
 			
