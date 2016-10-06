@@ -118,9 +118,22 @@ public class plotmysql {
 			e.printStackTrace();
 		}
 		p.sendMessage("Das Plot wurde geclaimt!");
-		// insert into owner_plot einfügen
+		// insert into owner_plot einfï¿½gen
 		
 		
 	}
-	
+	public static void unclaimPlot(Player p, int plotid) {
+		
+		try {
+			PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM owner_plot WHERE plot_id = ?");
+			ps.setInt(1, getPlotID(p));
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		p.sendMessage("Das Plot wurde geclaimt!");
+		// insert into owner_plot einfï¿½gen
+		
+		
+	}	
 }

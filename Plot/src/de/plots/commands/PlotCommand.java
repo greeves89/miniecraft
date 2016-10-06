@@ -28,7 +28,7 @@ public class PlotCommand implements CommandExecutor {
 					if (args.length == 2) {
 						WorldGeneration.createVoidWorld(args[1].toString(), sender);
 					} else {
-						sender.sendMessage("§cUsage: /plot createworld <worldname>");
+						sender.sendMessage("ï¿½cUsage: /plot createworld <worldname>");
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("worldtp")) {
@@ -36,7 +36,7 @@ public class PlotCommand implements CommandExecutor {
 					if (args.length == 2) {
 						WorldTeleportation.teleportEntityInWorld((Player) sender, args[1].toString(), true);
 					} else {
-						sender.sendMessage("§cUsage: /plot worldtp <worldname>");
+						sender.sendMessage("ï¿½cUsage: /plot worldtp <worldname>");
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("createplots")) {
@@ -49,7 +49,9 @@ public class PlotCommand implements CommandExecutor {
 				}
 			} else if (args[0].equalsIgnoreCase("unclaim")) {
 				if (sender.hasPermission("plot.command.unclaim")) {
-					
+					Player p = (Player) sender;
+					int plotid = plotmysql.getPlotID(p);
+					plotmysql.unclaimPlot(plotid);
 				}
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {
@@ -60,11 +62,12 @@ public class PlotCommand implements CommandExecutor {
 						owner = "Kein Besitzer";
 					}
 					if (plotid != -1) {
-						p.sendMessage("§c--- PlotInformationen ---");
-						p.sendMessage("§9ID: §c" + plotid);
-						p.sendMessage("§9Owner: §c" + owner);
+						p.sendMessage("ï¿½c--- PlotInformationen ---");
+						p.sendMessage("ï¿½9ID: ï¿½c" + plotid);
+						p.sendMessage("ï¿½9Owner: ï¿½c" + owner);
+						
 					} else {
-						p.sendMessage("§cDu stehst auf keinem Plot!");
+						p.sendMessage("ï¿½cDu stehst auf keinem Plot!");
 					}
 					
 				}
