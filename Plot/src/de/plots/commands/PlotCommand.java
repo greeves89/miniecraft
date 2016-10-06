@@ -51,7 +51,7 @@ public class PlotCommand implements CommandExecutor {
 				if (sender.hasPermission("plot.command.unclaim")) {
 					Player p = (Player) sender;
 					int plotid = plotmysql.getPlotID(p);
-					plotmysql.unclaimPlot(plotid);
+					plotmysql.unclaimPlot(p, plotid);
 				}
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {
