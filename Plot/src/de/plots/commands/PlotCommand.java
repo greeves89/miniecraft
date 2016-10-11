@@ -1,16 +1,11 @@
 package de.plots.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.plots.generation.PlotGeneration;
-import de.plots.generation.SinglePlotGeneration;
 import de.plots.generation.WorldGeneration;
 import de.plots.main.main;
 import de.plots.mysql.plotmysql;
@@ -28,7 +23,7 @@ public class PlotCommand implements CommandExecutor {
 					if (args.length == 2) {
 						WorldGeneration.createVoidWorld(args[1].toString(), sender);
 					} else {
-						sender.sendMessage("�cUsage: /plot createworld <worldname>");
+						sender.sendMessage("§cUsage: /plot createworld <worldname>");
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("worldtp")) {
@@ -36,7 +31,7 @@ public class PlotCommand implements CommandExecutor {
 					if (args.length == 2) {
 						WorldTeleportation.teleportEntityInWorld((Player) sender, args[1].toString(), true);
 					} else {
-						sender.sendMessage("�cUsage: /plot worldtp <worldname>");
+						sender.sendMessage("§cUsage: /plot worldtp <worldname>");
 					}
 				}
 			} else if (args[0].equalsIgnoreCase("createplots")) {
@@ -50,8 +45,7 @@ public class PlotCommand implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("unclaim")) {
 				if (sender.hasPermission("plot.command.unclaim")) {
 					Player p = (Player) sender;
-					int plotid = plotmysql.getPlotID(p);
-					plotmysql.unclaimPlot(p, plotid);
+					plotmysql.unclaimPlot(p);
 				}
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {
@@ -62,12 +56,12 @@ public class PlotCommand implements CommandExecutor {
 						owner = "Kein Besitzer";
 					}
 					if (plotid != -1) {
-						p.sendMessage("�c--- PlotInformationen ---");
-						p.sendMessage("�9ID: �c" + plotid);
-						p.sendMessage("�9Owner: �c" + owner);
+						p.sendMessage("§c--- PlotInformationen ---");
+						p.sendMessage("§9ID: §c" + plotid);
+						p.sendMessage("§9Owner: §c" + owner);
 						
 					} else {
-						p.sendMessage("�cDu stehst auf keinem Plot!");
+						p.sendMessage("§cDu stehst auf keinem Plot!");
 					}
 					
 				}

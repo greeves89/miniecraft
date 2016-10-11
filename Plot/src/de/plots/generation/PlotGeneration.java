@@ -18,7 +18,7 @@ public class PlotGeneration {
 				
 				//World: world | start_x start_z | end_x end_y | id | owner 
 				
-				SinglePlotGeneration.generateSinglePlot(world, min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.DOUBLE_STONE_SLAB2);
+				SinglePlotGeneration.generateSinglePlot(world, min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
 				
 				plotmysql.insertPlot(min, max, main.waysize);
 			}

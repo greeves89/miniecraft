@@ -3,11 +3,16 @@ package de.plots.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+
+import de.plots.generation.SinglePlotGeneration;
+import de.plots.main.main;
 
 public class plotmysql {
 	
@@ -118,21 +123,72 @@ public class plotmysql {
 			e.printStackTrace();
 		}
 		p.sendMessage("Das Plot wurde geclaimt!");
-		// insert into owner_plot einf�gen
+		// insert into owner_plot einfügen
 		
 		
 	}
-	public static void unclaimPlot(Player p, int plotid) {
-		
+	public static ArrayList<Location> getPlotLocation(int _id) {
+		ArrayList<Location> plotLocationList = new ArrayList<>();
+		int start_x;
+		int start_z;
+		int end_x;
+		int end_z;
+		Location min = new Location(main.plotworld, 0, 0, 0);
+		Location max = new Location(main.plotworld, 0, 0, 0);
 		try {
-			PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM owner_plot WHERE plot_id = ?");
-			ps.setInt(1, getPlotID(p));
-			ps.executeUpdate();
+			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM PLots WHERE ID = ?");
+			ps.setInt(1, _id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				min.setX(rs.getInt("start_x"));
+				min.setZ(rs.getInt("start_z"));
+				max.setX(rs.getInt("end_x"));
+				max.setX(rs.getInt("end_z"));
+			}
+			plotLocationList.add(min);
+			plotLocationList.add(max);
+			return plotLocationList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		p.sendMessage("Das Plot wurde geclaimt!");
-		// insert into owner_plot einf�gen
+		return null;
+	}
+	public static void unclaimPlot(Player p) {
+		int plotid =  getPlotID(p);
+		boolean reset = false;
+		
+		if (getPlotOwner(plotid) == p.getName()) {
+			p.sendMessage("Dieses Plot gehört dir!");
+			
+			
+			
+			try {
+				PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM owner_plot WHERE plot_id = ?");
+				ps.setInt(1,plotid);
+				ps.executeUpdate();
+				reset = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if (reset == true){
+				p.sendMessage("Das Plot wurde unclaimet!");
+				if (getPlotLocation(plotid) != null) {
+					Location min = getPlotLocation(plotid).get(0);
+					Location max = getPlotLocation(plotid).get(1);
+					SinglePlotGeneration.generateSinglePlot(p.getWorld(), min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+				} else {
+					p.sendMessage("Ein Fehler ist aufgetreteN!");
+				}
+			} else {
+				p.sendMessage("Fehler bei Plot reset!");
+			}
+			
+		} else {
+			
+		}
+			
+		
+		// insert into owner_plot einfügen
 		
 		
 	}	
