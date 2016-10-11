@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.plots.generation.GenerationGUI;
 import de.plots.generation.PlotGeneration;
 import de.plots.generation.PlotObject;
 import de.plots.generation.SinglePlotGeneration;
@@ -41,7 +42,9 @@ public class PlotCommand implements CommandExecutor {
 				}
 			} else if (args[0].equalsIgnoreCase("createplots")) {
 				if (sender.hasPermission("plot.command.createplots")) {
-					PlotGeneration.generatePlots(((Player) sender).getWorld(), ((Player) sender).getLocation(), main.plotsize + main.waysize, 3);
+					
+					//PlotGeneration.generatePlots(((Player) sender).getWorld(), ((Player) sender).getLocation(), main.plotsize + main.waysize, 3);
+					GenerationGUI.openInventory((Player) sender);
 				}
 			} else if (args[0].equalsIgnoreCase("claim")) {
 				if (sender.hasPermission("plot.command.claim")) {

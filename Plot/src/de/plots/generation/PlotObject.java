@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 
 public class PlotObject {
 
+	//refresh : claim, unclaim, reload, welterstellen
+	
 	Location min;
 	Location max;
 	int plotId;
@@ -20,6 +22,7 @@ public class PlotObject {
 	   
 	}
 
+	
 	public Location getMin() {
 		return min;
 	}

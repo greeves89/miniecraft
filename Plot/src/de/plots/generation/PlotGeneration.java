@@ -31,8 +31,8 @@ public class PlotGeneration {
 		mysql.deleteOwnerPlotTable();
 		mysql.deletePlotsTable();
 		
-		for (int x = 0; x < gswidht * plotamount; x+=gswidht)  {
-			for (int z = 0; z < gswidht * plotamount; z += gswidht) {
+		for (int x = middle.getBlockX(); x < (gswidht * plotamount) - 1; x+=gswidht)  {
+			for (int z = middle.getBlockZ(); z < (gswidht * plotamount) - 1; z += gswidht) {
 				Location min = new Location(world, x, 0, z);
 				Location max = new Location(world, x + gswidht, 0, z + gswidht);
 				
@@ -50,6 +50,15 @@ public class PlotGeneration {
 		}
 	}
 	
+	public static PlotObject getCorrespondingPlotObject(int _plotid) {
+		
+		for(int i= 0 ; i< plotLists.size();i++){
+			if (plotLists.get(i).getPlotId() == _plotid){
+				return plotLists.get(i);
+			}
+		}
+		return null;
+	}
 	
 	public static void addPlottoList (PlotObject _plot){
 		plotLists.add(_plot);	

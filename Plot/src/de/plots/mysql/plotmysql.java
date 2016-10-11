@@ -12,6 +12,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import de.plots.generation.PlotGeneration;
+import de.plots.generation.PlotObject;
 import de.plots.generation.SinglePlotGeneration;
 import de.plots.main.main;
 
@@ -94,20 +95,26 @@ public class plotmysql {
 		}
 		
 	}
-	public static String getPlotOwner(int plotid) {
+	public static String getPlotOwner(int _plotid) {
 		String s = null;
-		try {
-			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM owner_plot LEFT OUTER JOIN owner ON owner.ownerid=owner_plot.owner_id where plot_id = ?");
-			ps.setInt(1, plotid);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getString("ownername"));
-				return rs.getString("ownername");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		
+		if (PlotGeneration.getCorrespondingPlotObject(_plotid).getOwner() == null) {
+			return "Kein Besitzer";
+		} else {
+			return PlotGeneration.getCorrespondingPlotObject(_plotid).getOwner().getName();
 		}
-		return s;
+		
+//		try {
+//			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM owner_plot LEFT OUTER JOIN owner ON owner.ownerid=owner_plot.owner_id where plot_id = ?");
+//			ps.setInt(1, plotid);
+//			ResultSet rs = ps.executeQuery();
+//			while(rs.next()) {
+//				System.out.println(rs.getString("ownername"));
+//				return rs.getString("ownername");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public static void claimPlot(Player p) {
@@ -115,6 +122,8 @@ public class plotmysql {
 		if(getOwnerID(p) == -1) {
 			insertOwner(p);
 		}
+		
+		
 		
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("INSERT INTO owner_plot (owner_id,plot_id) VALUES (?,?)");
@@ -124,8 +133,10 @@ public class plotmysql {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(p);
 		p.sendMessage("Das Plot wurde geclaimt!");
-		// insert into owner_plot einfügen
+		// insert into owner_plot einfÃ¼gen
 		
 		
 	}
@@ -171,7 +182,7 @@ public class plotmysql {
 		
 		
 		if (getPlotOwner(plotid).equals(p.getName())) {
-			p.sendMessage("Dieses Plot gehört dir!");
+			p.sendMessage("Dieses Plot gehÃ¶rt dir!");
 			
 			
 			
@@ -191,6 +202,7 @@ public class plotmysql {
 					Location min = getPlotLocation(plotid).get(0);
 					Location max = getPlotLocation(plotid).get(1);
 					SinglePlotGeneration.generateSinglePlot(PlotGeneration.plotworld, min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+					PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(null);
 				} else {
 					p.sendMessage("Ein Fehler ist aufgetreten!");
 				}
@@ -199,11 +211,11 @@ public class plotmysql {
 			}
 			
 		} else {
-			p.sendMessage("Dieses Plot gehört dir nicht!");
+			p.sendMessage("Dieses Plot gehÃ¶rt dir nicht!");
 		}
 			
 		
-		// insert into owner_plot einfügen
+		// insert into owner_plot einfÃ¼gen
 	}	
 	public static Integer getLastPlotID() {
 		

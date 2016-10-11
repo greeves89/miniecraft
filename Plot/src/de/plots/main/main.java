@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plots.commands.PlotCommand;
+import de.plots.generation.GenerationGUI;
 import de.plots.generation.PlotGeneration;
 import de.plots.listener.PlotBuildBreak;
 import de.plots.mysql.mysql;
@@ -43,5 +44,6 @@ public class main extends JavaPlugin {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		
 		pm.registerEvents(new PlotBuildBreak(), this);
+		pm.registerEvents(new GenerationGUI(), this);
 	}
 }
