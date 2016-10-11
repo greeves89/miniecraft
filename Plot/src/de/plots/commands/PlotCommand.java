@@ -1,11 +1,16 @@
 package de.plots.commands;
 
+import java.util.ArrayList;
+
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.plots.generation.PlotGeneration;
+import de.plots.generation.PlotObject;
+import de.plots.generation.SinglePlotGeneration;
 import de.plots.generation.WorldGeneration;
 import de.plots.main.main;
 import de.plots.mysql.plotmysql;
@@ -46,6 +51,19 @@ public class PlotCommand implements CommandExecutor {
 				if (sender.hasPermission("plot.command.unclaim")) {
 					Player p = (Player) sender;
 					plotmysql.unclaimPlot(p);
+				}
+			} else if (args[0].equalsIgnoreCase("reset")) {
+				if (sender.hasPermission("plot.command.reset")) {
+					Player p = (Player) sender;
+					ArrayList<Location> locations = plotmysql.getPlotLocation(plotmysql.getPlotID(p));
+					Location min = locations.get(0);
+					Location max = locations.get(1);
+					SinglePlotGeneration.generateSinglePlot(PlotGeneration.plotworld, min, max, main.waysize, 5, 65, PlotGeneration.waymaterial, PlotGeneration.boardermaterial);
+				}
+			} else if (args[0].equalsIgnoreCase("check")) {
+				if (sender.hasPermission("plot.command.reset")) {
+					Player p = (Player) sender;
+					p.sendMessage("§9Registrierte Plots: §c" + PlotGeneration.plotLists.size());
 				}
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {

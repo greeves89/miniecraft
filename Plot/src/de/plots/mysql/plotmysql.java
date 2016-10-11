@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import de.plots.generation.PlotGeneration;
 import de.plots.generation.SinglePlotGeneration;
 import de.plots.main.main;
 
@@ -100,6 +101,7 @@ public class plotmysql {
 			ps.setInt(1, plotid);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
+				System.out.println(rs.getString("ownername"));
 				return rs.getString("ownername");
 			}
 		} catch (SQLException e) {
@@ -133,17 +135,23 @@ public class plotmysql {
 		int start_z;
 		int end_x;
 		int end_z;
-		Location min = new Location(main.plotworld, 0, 0, 0);
-		Location max = new Location(main.plotworld, 0, 0, 0);
+		Location min = new Location(PlotGeneration.plotworld, 0, 0, 0);
+		Location max = new Location(PlotGeneration.plotworld, 0, 0, 0);
 		try {
-			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM PLots WHERE ID = ?");
+			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots WHERE ID = ?");
 			ps.setInt(1, _id);
 			ResultSet rs = ps.executeQuery();
+			if(main.debug == true){
+				if(rs == null){
+					System.out.println("Resultset ist null!");	
+				}
+				
+			}
 			while(rs.next()) {
-				min.setX(rs.getInt("start_x"));
-				min.setZ(rs.getInt("start_z"));
+				min.setX(rs.getInt("start_x") - main.waysize);
+				min.setZ(rs.getInt("start_z") - main.waysize);
 				max.setX(rs.getInt("end_x"));
-				max.setX(rs.getInt("end_z"));
+				max.setZ(rs.getInt("end_z"));
 			}
 			plotLocationList.add(min);
 			plotLocationList.add(max);
@@ -157,7 +165,12 @@ public class plotmysql {
 		int plotid =  getPlotID(p);
 		boolean reset = false;
 		
-		if (getPlotOwner(plotid) == p.getName()) {
+		if(main.debug == true){
+			p.sendMessage(getPlotOwner(plotid) + " - " +  p.getName());	
+		}
+		
+		
+		if (getPlotOwner(plotid).equals(p.getName())) {
 			p.sendMessage("Dieses Plot gehört dir!");
 			
 			
@@ -172,24 +185,40 @@ public class plotmysql {
 			}
 			if (reset == true){
 				p.sendMessage("Das Plot wurde unclaimet!");
+				p.sendMessage(getPlotLocation(plotid).size() + "");
+				
 				if (getPlotLocation(plotid) != null) {
 					Location min = getPlotLocation(plotid).get(0);
 					Location max = getPlotLocation(plotid).get(1);
-					SinglePlotGeneration.generateSinglePlot(p.getWorld(), min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+					SinglePlotGeneration.generateSinglePlot(PlotGeneration.plotworld, min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
 				} else {
-					p.sendMessage("Ein Fehler ist aufgetreteN!");
+					p.sendMessage("Ein Fehler ist aufgetreten!");
 				}
 			} else {
 				p.sendMessage("Fehler bei Plot reset!");
 			}
 			
 		} else {
-			
+			p.sendMessage("Dieses Plot gehört dir nicht!");
 		}
 			
 		
 		// insert into owner_plot einfügen
-		
-		
 	}	
+	public static Integer getLastPlotID() {
+		
+		//ICH HOLE EBEN WAS ZU ESSEN
+		
+		
+		try {
+			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT ID FROM Plots ORDER BY ID DESC Limit 1");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				return rs.getInt("ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

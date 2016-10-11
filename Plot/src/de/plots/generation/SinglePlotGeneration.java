@@ -19,8 +19,8 @@ public class SinglePlotGeneration {
 
 		// Removing every single Block at the Plot
 
-		for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
-			for (int z = min.getBlockZ(); z <= max.getBlockZ(); z++) {
+		for (int x = min.getBlockX(); x <= max.getBlockX() - 1; x++) {
+			for (int z = min.getBlockZ(); z <= max.getBlockZ() - 1; z++) {
 				for (int y = 0; y <= 130; y++) {
 					Location temp = new Location(world, x, y, z);
 					world.getBlockAt(temp).setType(Material.AIR);
@@ -68,11 +68,13 @@ public class SinglePlotGeneration {
 		}
 		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
 			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
+				int y = stonehight + grasshight;
+				System.out.println("x: " + x);
+				System.out.println("z: " + z);
+				System.out.println("y: " + y);
 				// Removing the other Blocks blocks
-				Location boarder = new Location(world, x, stonehight + grasshight, z);
-				if (world.getBlockAt(boarder).equals(boarderMaterial)) {
-					world.getBlockAt(boarder).setType(Material.AIR);
-				}
+				Location boarder = new Location(world, x, y, z);
+				world.getBlockAt(boarder).setType(Material.AIR);
 
 			}
 		}
