@@ -60,6 +60,18 @@ public class PlotGeneration {
 		return null;
 	}
 	
+	public static ArrayList<Integer> getPlotIDFromPlayer(String _playername){
+		
+		ArrayList<Integer> plotIDList = new ArrayList<Integer>();
+		
+		for(int i = 0; i <= plotLists.size();i++){
+			if(_playername == plotLists.get(i).getOwner().getName()){
+				plotIDList.add(plotLists.get(i).getPlotId());
+			}
+		}
+		return plotIDList;
+	}
+	
 	public static void addPlottoList (PlotObject _plot){
 		plotLists.add(_plot);	
 	}

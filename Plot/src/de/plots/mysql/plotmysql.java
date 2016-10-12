@@ -95,6 +95,27 @@ public class plotmysql {
 		}
 		
 	}
+	
+	public static ArrayList<Integer> getPlotIDFromOwner(Player p) {
+		
+		ArrayList<Integer> plotIDList = new ArrayList();
+		
+//		try {
+//			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT ID FROM Plots INNER JOIN Plots.ID = owner_plots");
+//		
+//			ps.setString(1, p.getName());
+//			ps.setString(2, p.getUniqueId().toString());
+//			System.out.println("User: " + p.getName() + " wurde erstellt!");
+//			ps.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		PlotGeneration.getPlotIDFromPlayer(p.getName());
+		
+		return PlotGeneration.getPlotIDFromPlayer(p.getName());
+	}
+	
 	public static String getPlotOwner(int _plotid) {
 		String s = null;
 		
@@ -142,9 +163,16 @@ public class plotmysql {
 	}
 	
 	public static void portToPlot(Player p){
-
+		Location minPlotLocation = null;
 		int ownerID = getOwnerID(p);
-		Location minPlotLocation = getPlotLocation(ownerID).get(0);
+		
+		ArrayList<Integer> plotIDList = getPlotIDFromOwner(p);
+		
+		for(int i = 0; i<plotIDList.size();i++){
+				
+		}
+		minPlotLocation = getPlotLocation(plotIDList.indexOf(0)).get(0);
+	
 		minPlotLocation.setY(70);
 		minPlotLocation.setZ(minPlotLocation.getZ()+16);
 		minPlotLocation.setX(minPlotLocation.getX()+16);
@@ -230,8 +258,6 @@ public class plotmysql {
 		
 		if (getPlotOwner(plotid).equals(p.getName())) {
 			p.sendMessage("Dieses Plot gehÃ¶rt dir!");
-			
-			
 			
 			try {
 				PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM owner_plot WHERE plot_id = ?");
