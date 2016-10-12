@@ -167,12 +167,11 @@ public class plotmysql {
 		int ownerID = getOwnerID(p);
 		
 		ArrayList<Integer> plotIDList = getPlotIDFromOwner(p);
+		p.sendMessage("Es wurden " + plotIDList.size()+" gefunden!");
 		
-		for(int i = 0; i<plotIDList.size();i++){
-				
-		}
 		minPlotLocation = getPlotLocation(plotIDList.indexOf(0)).get(0);
-	
+		
+		
 		minPlotLocation.setY(70);
 		minPlotLocation.setZ(minPlotLocation.getZ()+16);
 		minPlotLocation.setX(minPlotLocation.getX()+16);

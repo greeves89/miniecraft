@@ -61,11 +61,23 @@ public class PlotGeneration {
 	}
 	
 	public static ArrayList<Integer> getPlotIDFromPlayer(String _playername){
-		
+		System.out.println("Es wird nach Plots für "+ _playername +" gesucht!");
 		ArrayList<Integer> plotIDList = new ArrayList<Integer>();
 		
+		System.out.println("Es werden "+plotLists.size()+" nach "+_playername+" durchsucht.");
+		
 		for(int i = 0; i <= plotLists.size();i++){
-			if(_playername == plotLists.get(i).getOwner().getName()){
+			String plotPlayername = null;
+			try{
+				plotPlayername = plotLists.get(i).getOwner().getName();
+			}catch (NullPointerException e){
+				System.out.println("Es ist ein Fehler aufgetreten -> Kein Spieler hinterlegt.");
+			}
+			
+			System.out.println("Plot: "+i+" Besitzer:"+ plotPlayername);
+			System.out.println("Vergleiche: _playername == plotPlayername");
+			System.out.println("Ergebnis: " + _playername.equals(plotPlayername));
+			if(_playername.equals(plotPlayername)){
 				plotIDList.add(plotLists.get(i).getPlotId());
 			}
 		}
