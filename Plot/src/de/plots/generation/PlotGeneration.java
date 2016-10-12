@@ -66,7 +66,7 @@ public class PlotGeneration {
 		
 		System.out.println("Es werden "+plotLists.size()+" nach "+_playername+" durchsucht.");
 		
-		for(int i = 0; i <= plotLists.size();i++){
+		for(int i = 0; i < plotLists.size();i++){
 			String plotPlayername = null;
 			try{
 				plotPlayername = plotLists.get(i).getOwner().getName();
