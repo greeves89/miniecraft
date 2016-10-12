@@ -141,6 +141,14 @@ public class plotmysql {
 		
 	}
 	
+	public static void portToPlot(Player p){
+
+		int ownerID = getOwnerID(p);
+		Location minPlotLocation = getPlotLocation(ownerID).get(0);
+		p.teleport(minPlotLocation);
+		
+	}
+	
 	public static void autoClaimPlot(Player p) {
 		int plotID = 0;
 		if(getOwnerID(p) == -1) {

@@ -50,6 +50,10 @@ public class PlotCommand implements CommandExecutor {
 				if (sender.hasPermission("plot.command.claim")) {
 					plotmysql.autoClaimPlot((Player) sender);
 				}
+			} else if (args[0].equalsIgnoreCase("tp")) {
+				if (sender.hasPermission("plot.command.claim")) {
+					plotmysql.portToPlot((Player) sender);
+				}
 			} else if (args[0].equalsIgnoreCase("claim")) {
 				if (sender.hasPermission("plot.command.claim")) {
 					plotmysql.claimPlot((Player) sender);
