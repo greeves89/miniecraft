@@ -148,19 +148,18 @@ public class plotmysql {
 		}
 		
 		try {
-			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots LEFT OUTER JOIN owner_plot on Plots.ID = owner_plot.plot_id WHERE owner_plot.owner_id = null ORDER BY RAND() LIMIT 1");
+			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots LEFT OUTER JOIN owner_plot on Plots.ID = owner_plot.plot_id WHERE owner_plot.owner_id IS NULL ORDER BY ID LIMIT 1");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				plotID = rs.getInt("ID");
+				p.sendMessage("Plot reserviert: "+ plotID);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		if (plotID != 0){
-			
-			PreparedStatement ps;
 			try {
-				ps = mysql.getConnection().prepareStatement("INSERT INTO owner_plot (owner_id,plot_id) VALUES (?,?)");
+				PreparedStatement ps = mysql.getConnection().prepareStatement("INSERT INTO owner_plot (owner_id,plot_id) VALUES (?,?)");
 				ps.setInt(1, getOwnerID(p));
 				ps.setInt(2, plotID);
 				ps.executeUpdate();
