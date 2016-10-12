@@ -46,6 +46,10 @@ public class PlotCommand implements CommandExecutor {
 					//PlotGeneration.generatePlots(((Player) sender).getWorld(), ((Player) sender).getLocation(), main.plotsize + main.waysize, 3);
 					GenerationGUI.openInventory((Player) sender);
 				}
+			} else if (args[0].equalsIgnoreCase("autoclaim")) {
+				if (sender.hasPermission("plot.command.claim")) {
+					plotmysql.autoClaimPlot((Player) sender);
+				}
 			} else if (args[0].equalsIgnoreCase("claim")) {
 				if (sender.hasPermission("plot.command.claim")) {
 					plotmysql.claimPlot((Player) sender);

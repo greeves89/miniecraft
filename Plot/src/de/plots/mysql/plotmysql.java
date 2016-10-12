@@ -140,6 +140,42 @@ public class plotmysql {
 		
 		
 	}
+	
+	public static void autoClaimPlot(Player p) {
+		int plotID = 0;
+		if(getOwnerID(p) == -1) {
+			insertOwner(p);
+		}
+		
+		try {
+			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots LEFT OUTER JOIN owner_plot on Plots.ID = owner_plot.plot_id WHERE owner_plot.owner_id = null ORDER BY RAND() LIMIT 1");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				plotID = rs.getInt("ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (plotID != 0){
+			
+			PreparedStatement ps;
+			try {
+				ps = mysql.getConnection().prepareStatement("INSERT INTO owner_plot (owner_id,plot_id) VALUES (?,?)");
+				ps.setInt(1, getOwnerID(p));
+				ps.setInt(2, plotID);
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			PlotGeneration.getCorrespondingPlotObject(plotID).setOwner(p);
+			p.sendMessage("Das Plot wurde geclaimt!");	
+		}else{
+			p.sendMessage("Fehler beim beanspruchen eines Plots.");	
+		}
+
+	}
+	
 	public static ArrayList<Location> getPlotLocation(int _id) {
 		ArrayList<Location> plotLocationList = new ArrayList<>();
 		int start_x;
