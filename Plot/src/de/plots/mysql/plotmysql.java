@@ -145,9 +145,9 @@ public class plotmysql {
 
 		int ownerID = getOwnerID(p);
 		Location minPlotLocation = getPlotLocation(ownerID).get(0);
-		minPlotLocation.setY(1);
-		minPlotLocation.setZ(minPlotLocation.getZ()+5);
-		minPlotLocation.setX(minPlotLocation.getX()+5);
+		minPlotLocation.setY(70);
+		minPlotLocation.setZ(minPlotLocation.getZ()+16);
+		minPlotLocation.setX(minPlotLocation.getX()+16);
 		
 		p.teleport(minPlotLocation);
 		
