@@ -74,11 +74,11 @@ public class PlotGeneration {
 				System.out.println("Es ist ein Fehler aufgetreten -> Kein Spieler hinterlegt.");
 			}
 			
-			System.out.println("Plot: "+i+" Besitzer:"+ plotPlayername);
-			System.out.println("Vergleiche: _playername == plotPlayername");
-			System.out.println("Ergebnis: " + _playername.equals(plotPlayername));
 			if(_playername.equals(plotPlayername)){
 				plotIDList.add(plotLists.get(i).getPlotId());
+				System.out.println("Plot: "+plotLists.get(i).getPlotId()+" Besitzer:"+ plotPlayername);
+				System.out.println("Vergleiche: _playername == plotPlayername");
+				System.out.println("Ergebnis: " + _playername.equals(plotPlayername));
 			}
 		}
 		return plotIDList;

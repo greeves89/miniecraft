@@ -111,8 +111,6 @@ public class plotmysql {
 //			e.printStackTrace();
 //		}
 		
-		PlotGeneration.getPlotIDFromPlayer(p.getName());
-		
 		return PlotGeneration.getPlotIDFromPlayer(p.getName());
 	}
 	
@@ -164,13 +162,22 @@ public class plotmysql {
 	
 	public static void portToPlot(Player p){
 		Location minPlotLocation = null;
+		Location maxPlotLocation = null;
+		
 		int ownerID = getOwnerID(p);
 		
-		ArrayList<Integer> plotIDList = getPlotIDFromOwner(p);
-		p.sendMessage("Es wurden " + plotIDList.size()+" gefunden!");
+		ArrayList<Integer> plotIDList = PlotGeneration.getPlotIDFromPlayer(p.getName());
 		
-		minPlotLocation = getPlotLocation(plotIDList.indexOf(0)).get(0);
+		p.sendMessage("§9Es wurden " + plotIDList.size()+" gefunden!");
+		System.out.println("Gefundene PlotID: "+plotIDList.get(0));
 		
+		System.out.println(getPlotLocation(plotIDList.get(0)).size());
+		
+		minPlotLocation = getPlotLocation(plotIDList.get(0)).get(0);
+		maxPlotLocation = getPlotLocation(plotIDList.get(0)).get(1);
+		
+		System.out.println("X: "+minPlotLocation.getBlockX()+"Y: "+minPlotLocation.getBlockY()+"Z: "+minPlotLocation.getBlockZ());
+		System.out.println("X: "+maxPlotLocation.getBlockX()+"Y: "+maxPlotLocation.getBlockY()+"Z: "+maxPlotLocation.getBlockZ());
 		
 		minPlotLocation.setY(70);
 		minPlotLocation.setZ(minPlotLocation.getZ()+16);
@@ -216,10 +223,7 @@ public class plotmysql {
 	
 	public static ArrayList<Location> getPlotLocation(int _id) {
 		ArrayList<Location> plotLocationList = new ArrayList<>();
-		int start_x;
-		int start_z;
-		int end_x;
-		int end_z;
+		System.out.println("Suche die Location von PlotID:" +_id);
 		Location min = new Location(PlotGeneration.plotworld, 0, 0, 0);
 		Location max = new Location(PlotGeneration.plotworld, 0, 0, 0);
 		try {
@@ -240,6 +244,7 @@ public class plotmysql {
 			}
 			plotLocationList.add(min);
 			plotLocationList.add(max);
+			System.out.println("Es wurden "+plotLocationList.size()+" Locations des Plots "+_id+" gefunden.");
 			return plotLocationList;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -256,7 +261,7 @@ public class plotmysql {
 		
 		
 		if (getPlotOwner(plotid).equals(p.getName())) {
-			p.sendMessage("Dieses Plot gehÃ¶rt dir!");
+			p.sendMessage("Dieses Plot gehört dir!");
 			
 			try {
 				PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM owner_plot WHERE plot_id = ?");
@@ -283,7 +288,7 @@ public class plotmysql {
 			}
 			
 		} else {
-			p.sendMessage("Dieses Plot gehÃ¶rt dir nicht!");
+			p.sendMessage("Dieses Plot gehört dir nicht!");
 		}
 			
 		
