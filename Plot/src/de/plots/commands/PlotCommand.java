@@ -36,10 +36,14 @@ public class PlotCommand implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("worldtp")) {
 				if (sender.hasPermission("plot.command.worldtp")) {
 					if (args.length == 2) {
-						WorldTeleportation.teleportEntityInWorld((Player) sender, args[1].toString(), true);
+						WorldTeleportation.teleportEntityInWorld((Player) sender, args[1].toString());
 					} else {
 						sender.sendMessage("§cUsage: /plot worldtp <worldname>");
 					}
+				}
+			}  else if (args[0].equalsIgnoreCase("adminmode")) {
+				if (sender.hasPermission("plot.admin")) {
+					//TODO: CODE
 				}
 			} else if (args[0].equalsIgnoreCase("createplots")) {
 				if (sender.hasPermission("plot.command.createplots")) {

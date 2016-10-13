@@ -7,17 +7,11 @@ import org.bukkit.entity.Player;
 
 public class WorldTeleportation {
 
-	public static void teleportEntityInWorld(LivingEntity e, String worldname, boolean check) {
+	public static void teleportEntityInWorld(LivingEntity e, String worldname) {
 		World w = Bukkit.getWorld(worldname);
 		if (w != null) {
-			if (check) {
-				e.teleport(w.getSpawnLocation());
-				e.sendMessage("ง8Du wurdest in eine andere Welt teleportiert!");
-			}
-		} else {
-			if (e instanceof Player) {
-				e.sendMessage("ง8Du willst in eine Welt welche nicht existiert!");
-			}
+			e.teleport(w.getSpawnLocation());
+			e.sendMessage("ยง8Du wurdest in die Welt ยงc" + worldname + " ยง8teleportiert!");
 		}
 	}
 	

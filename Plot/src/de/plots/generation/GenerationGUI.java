@@ -24,26 +24,26 @@ public class GenerationGUI implements Listener {
 		
 		inv = Bukkit.createInventory(null, 4*9, "Plotadmin");
 		
-		ItemStack glass = createItem(Material.THIN_GLASS, "[]");
+		ItemStack glass = ItemCreation.createItem(Material.THIN_GLASS, "[]");
 		for (int i = 0; i < inv.getSize(); i++) {
 			inv.setItem(i, glass);
 		}
 		
 		List<String> waylore = new ArrayList<>();
 		waylore.add("§9Wähle aus, aus welchem Item der Weg bestehen soll!");
-		ItemStack wayItem = createItem(Material.QUARTZ_BLOCK, "§cWeg Item", waylore);
+		ItemStack wayItem = ItemCreation.createItem(Material.QUARTZ_BLOCK, "§cWeg Item", waylore);
 		
 		List<String> borderlore = new ArrayList<>();
 		borderlore.add("§9Wähle aus, aus welchem Item die Begrenzung bestehen soll!");
-		ItemStack borderitem = createItem(Material.DIAMOND_BLOCK, "§cBegrenzungs-Item", borderlore);
+		ItemStack borderitem = ItemCreation.createItem(Material.DIAMOND_BLOCK, "§cBegrenzungs-Item", borderlore);
 		
 		List<String> claimedborderlore = new ArrayList<>();
 		claimedborderlore.add("§9Wähle aus, aus welchem Item die geclaimte Begrenzung bestehen soll!");
-		ItemStack claimedborderitem = createItem(Material.QUARTZ_BLOCK, "§cGeclaimte Begrenzung Itemen", claimedborderlore);
+		ItemStack claimedborderitem = ItemCreation.createItem(Material.QUARTZ_BLOCK, "§cGeclaimte Begrenzung Itemen", claimedborderlore);
 		
 		List<String> continueItemLore = new ArrayList<>();
 		continueItemLore.add("§9Wähle aus, aus welchem Item die geclaimte Begrenzung bestehen soll!");
-		ItemStack continueItem = createItem(Material.EMERALD_BLOCK, "§l§2Weiter", continueItemLore);
+		ItemStack continueItem = ItemCreation.createItem(Material.EMERALD_BLOCK, "§l§2Weiter", continueItemLore);
 		
 		inv.setItem(9+2, wayItem);
 		inv.setItem(9+4, borderitem);
@@ -53,23 +53,7 @@ public class GenerationGUI implements Listener {
 		
 		p.openInventory(inv);
 	}
-	public static ItemStack createItem(Material material, String displayname, List<String> lore) {
-		ItemStack item = new ItemStack(material);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(displayname);
-		meta.setLore(lore);
-		item.setItemMeta(meta);
-		
-		return item;
-	}
-	public static ItemStack createItem(Material material, String displayname) {
-		ItemStack item = new ItemStack(material);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(displayname);
-		item.setItemMeta(meta);
-		
-		return item;
-	}
+
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getClickedInventory().equals(inv)) {
