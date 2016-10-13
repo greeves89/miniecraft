@@ -16,6 +16,7 @@ import de.plots.generation.WorldGeneration;
 import de.plots.main.main;
 import de.plots.mysql.plotmysql;
 import de.plots.utils.WorldTeleportation;
+import de.plots.utils.plotjava;
 
 public class PlotCommand implements CommandExecutor {
 
@@ -79,8 +80,8 @@ public class PlotCommand implements CommandExecutor {
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {
 					Player p = (Player) sender;
-					int plotid = plotmysql.getPlotID(p);
-					String owner = plotmysql.getPlotOwner(plotid);
+					int plotid = plotjava.getPlotID(p);
+					String owner = plotjava.getPlotOwner(plotid);
 					if (owner == null) {
 						owner = "Kein Besitzer";
 					}

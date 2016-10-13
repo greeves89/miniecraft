@@ -15,6 +15,7 @@ import de.plots.generation.PlotGeneration;
 import de.plots.generation.PlotObject;
 import de.plots.generation.SinglePlotGeneration;
 import de.plots.main.main;
+import de.plots.utils.plotjava;
 
 public class plotmysql {
 	
@@ -95,47 +96,6 @@ public class plotmysql {
 		}
 		
 	}
-	
-	public static ArrayList<Integer> getPlotIDFromOwner(Player p) {
-		
-		ArrayList<Integer> plotIDList = new ArrayList();
-		
-//		try {
-//			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT ID FROM Plots INNER JOIN Plots.ID = owner_plots");
-//		
-//			ps.setString(1, p.getName());
-//			ps.setString(2, p.getUniqueId().toString());
-//			System.out.println("User: " + p.getName() + " wurde erstellt!");
-//			ps.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		
-		return PlotGeneration.getPlotIDFromPlayer(p.getName());
-	}
-	
-	public static String getPlotOwner(int _plotid) {
-		String s = null;
-		
-		if (PlotGeneration.getCorrespondingPlotObject(_plotid).getOwner() == null) {
-			return "Kein Besitzer";
-		} else {
-			return PlotGeneration.getCorrespondingPlotObject(_plotid).getOwner().getName();
-		}
-		
-//		try {
-//			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM owner_plot LEFT OUTER JOIN owner ON owner.ownerid=owner_plot.owner_id where plot_id = ?");
-//			ps.setInt(1, plotid);
-//			ResultSet rs = ps.executeQuery();
-//			while(rs.next()) {
-//				System.out.println(rs.getString("ownername"));
-//				return rs.getString("ownername");
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-	}
-	
 	public static void claimPlot(Player p) {
 		
 		if(getOwnerID(p) == -1) {
@@ -180,8 +140,8 @@ public class plotmysql {
 		System.out.println("X: "+maxPlotLocation.getBlockX()+"Y: "+maxPlotLocation.getBlockY()+"Z: "+maxPlotLocation.getBlockZ());
 		
 		minPlotLocation.setY(70);
-		minPlotLocation.setZ(minPlotLocation.getZ()+16);
-		minPlotLocation.setX(minPlotLocation.getX()+16);
+		minPlotLocation.setZ(minPlotLocation.getZ());
+		minPlotLocation.setX(minPlotLocation.getX() + main.plotsize / 2);
 		
 		p.teleport(minPlotLocation);
 		
@@ -256,11 +216,11 @@ public class plotmysql {
 		boolean reset = false;
 		
 		if(main.debug == true){
-			p.sendMessage(getPlotOwner(plotid) + " - " +  p.getName());	
+			p.sendMessage(plotjava.getPlotOwner(plotid) + " - " +  p.getName());	
 		}
 		
 		
-		if (getPlotOwner(plotid).equals(p.getName())) {
+		if (plotjava.getPlotOwner(plotid).equals(p.getName())) {
 			p.sendMessage("Dieses Plot gehört dir!");
 			
 			try {
@@ -295,9 +255,6 @@ public class plotmysql {
 		// insert into owner_plot einfÃ¼gen
 	}	
 	public static Integer getLastPlotID() {
-		
-		//ICH HOLE EBEN WAS ZU ESSEN
-		
 		
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT ID FROM Plots ORDER BY ID DESC Limit 1");

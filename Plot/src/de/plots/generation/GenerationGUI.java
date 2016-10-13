@@ -3,6 +3,7 @@ package de.plots.generation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.math.IEEE754rUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,6 +23,11 @@ public class GenerationGUI implements Listener {
 	public static void openInventory(Player p) {
 		
 		inv = Bukkit.createInventory(null, 4*9, "Plotadmin");
+		
+		ItemStack glass = createItem(Material.THIN_GLASS, "[]");
+		for (int i = 0; i < inv.getSize(); i++) {
+			inv.setItem(i, glass);
+		}
 		
 		List<String> waylore = new ArrayList<>();
 		waylore.add("§9Wähle aus, aus welchem Item der Weg bestehen soll!");
@@ -56,18 +62,28 @@ public class GenerationGUI implements Listener {
 		
 		return item;
 	}
+	public static ItemStack createItem(Material material, String displayname) {
+		ItemStack item = new ItemStack(material);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(displayname);
+		item.setItemMeta(meta);
+		
+		return item;
+	}
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getClickedInventory().equals(inv)) {
 			if (e.getWhoClicked() instanceof Player) {
 				Player p = (Player) e.getWhoClicked();
 				if (p.hasPermission("server.admin")) {
-					if (e.getCurrentItem().getType() != Material.AIR) {
+					if (e.getCurrentItem().getType() != Material.THIN_GLASS) {
 						e.setCancelled(true);
-					}
-					
-					if (e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)) {
-						//TODO:
+					} else if (e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)) {
+						ItemStack wayItem = e.getClickedInventory().getItem(9*2+2);
+						ItemStack borderitem = e.getClickedInventory().getItem(9*2+2);
+						ItemStack claimedborderitem = e.getClickedInventory().getItem(9*2+2);
+						
+						
 						p.closeInventory();
 					}
 				} else {
