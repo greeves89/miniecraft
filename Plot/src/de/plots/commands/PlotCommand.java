@@ -15,6 +15,7 @@ import de.plots.generation.SinglePlotGeneration;
 import de.plots.generation.WorldGeneration;
 import de.plots.main.main;
 import de.plots.mysql.plotmysql;
+import de.plots.utils.PlotInformation;
 import de.plots.utils.WorldTeleportation;
 import de.plots.utils.plotjava;
 
@@ -40,10 +41,6 @@ public class PlotCommand implements CommandExecutor {
 					} else {
 						sender.sendMessage("§cUsage: /plot worldtp <worldname>");
 					}
-				}
-			}  else if (args[0].equalsIgnoreCase("adminmode")) {
-				if (sender.hasPermission("plot.admin")) {
-					//TODO: CODE
 				}
 			} else if (args[0].equalsIgnoreCase("createplots")) {
 				if (sender.hasPermission("plot.command.createplots")) {
@@ -74,7 +71,7 @@ public class PlotCommand implements CommandExecutor {
 					ArrayList<Location> locations = plotmysql.getPlotLocation(plotmysql.getPlotID(p));
 					Location min = locations.get(0);
 					Location max = locations.get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotGeneration.plotworld, min, max, main.waysize, 5, 65, PlotGeneration.waymaterial, PlotGeneration.boardermaterial);
+					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld, min, max, PlotInformation.waysize, 5, 65, PlotGeneration.waymaterial, PlotGeneration.boardermaterial);
 				}
 			} else if (args[0].equalsIgnoreCase("check")) {
 				if (sender.hasPermission("plot.command.reset")) {

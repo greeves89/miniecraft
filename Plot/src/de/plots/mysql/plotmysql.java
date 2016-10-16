@@ -5,16 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import de.plots.generation.PlotGeneration;
-import de.plots.generation.PlotObject;
 import de.plots.generation.SinglePlotGeneration;
 import de.plots.main.main;
+import de.plots.utils.PlotInformation;
 import de.plots.utils.plotjava;
 
 public class plotmysql {
@@ -124,8 +122,6 @@ public class plotmysql {
 		Location minPlotLocation = null;
 		Location maxPlotLocation = null;
 		
-		int ownerID = getOwnerID(p);
-		
 		ArrayList<Integer> plotIDList = PlotGeneration.getPlotIDFromPlayer(p.getName());
 		
 		p.sendMessage("§9Es wurden " + plotIDList.size()+" gefunden!");
@@ -141,7 +137,7 @@ public class plotmysql {
 		
 		minPlotLocation.setY(70);
 		minPlotLocation.setZ(minPlotLocation.getZ());
-		minPlotLocation.setX(minPlotLocation.getX() + main.plotsize / 2);
+		minPlotLocation.setX(minPlotLocation.getX() + PlotInformation.plotsize / 2);
 		
 		p.teleport(minPlotLocation);
 		
@@ -184,8 +180,8 @@ public class plotmysql {
 	public static ArrayList<Location> getPlotLocation(int _id) {
 		ArrayList<Location> plotLocationList = new ArrayList<>();
 		System.out.println("Suche die Location von PlotID:" +_id);
-		Location min = new Location(PlotGeneration.plotworld, 0, 0, 0);
-		Location max = new Location(PlotGeneration.plotworld, 0, 0, 0);
+		Location min = new Location(PlotInformation.plotworld, 0, 0, 0);
+		Location max = new Location(PlotInformation.plotworld, 0, 0, 0);
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots WHERE ID = ?");
 			ps.setInt(1, _id);
@@ -197,8 +193,8 @@ public class plotmysql {
 				
 			}
 			while(rs.next()) {
-				min.setX(rs.getInt("start_x") - main.waysize);
-				min.setZ(rs.getInt("start_z") - main.waysize);
+				min.setX(rs.getInt("start_x") - PlotInformation.waysize);
+				min.setZ(rs.getInt("start_z") - PlotInformation.waysize);
 				max.setX(rs.getInt("end_x"));
 				max.setZ(rs.getInt("end_z"));
 			}
@@ -238,7 +234,7 @@ public class plotmysql {
 				if (getPlotLocation(plotid) != null) {
 					Location min = getPlotLocation(plotid).get(0);
 					Location max = getPlotLocation(plotid).get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotGeneration.plotworld, min, max, main.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld, min, max, PlotInformation.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
 					PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(null);
 				} else {
 					p.sendMessage("Ein Fehler ist aufgetreten!");

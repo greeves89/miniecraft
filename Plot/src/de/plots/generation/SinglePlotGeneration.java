@@ -1,5 +1,8 @@
 package de.plots.generation;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -14,6 +17,8 @@ public class SinglePlotGeneration {
 	 * @author Eric D.
 	 */
 
+	private static ArrayList<Material> ores = new ArrayList<>();
+	
 	public static void generateSinglePlot(World world, Location min, Location max, int way, int grasshight,
 			int stonehight, Material wayMaterial, Material boarderMaterial) {
 
@@ -69,31 +74,60 @@ public class SinglePlotGeneration {
 		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
 			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
 				int y = stonehight + grasshight;
-				System.out.println("x: " + x);
-				System.out.println("z: " + z);
-				System.out.println("y: " + y);
 				// Removing the other Blocks blocks
 				Location boarder = new Location(world, x, y, z);
 				world.getBlockAt(boarder).setType(Material.AIR);
 
 			}
 		}
-		// TODO: Bedrock
+		for (int x = min.getBlockX(); x < max.getBlockX(); x++) {
+			for (int z = min.getBlockZ(); z < max.getBlockZ(); z++) {
+				//Create the Bedrock
+				Location bedrock = new Location(world, x, 1, z);
+				world.getBlockAt(bedrock).setType(Material.BEDROCK);
 
-		// //generating the border
-		// for (int x = min.getBlockX() + way - 1; x < max.getBlockX() - way +
-		// 1; x++) {
-		// for (int z = min.getBlockZ() + way - 1; z < max.getBlockZ() - way +
-		// 1; z++) {
-		// for (int y = 1; y < stoneheight + grassheight; y++ ) {
-		// //Generating the stone blocks
-		// Location loc = new Location(world, x, y, z);
-		// if (world.getBlockAt(loc).getType() == Material.AIR) {
-		// world.getBlockAt(loc).setType(bordermaterial);
-		// }
-		// }
-		// }
-		// }
+			}
+		}
+		fillMaterials();
+		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
+			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
+				for (int y = 1; y < 32; y++) {
+					//Generate Materials
+					Random rn = new Random();
+					if (rn.nextInt(10) + 1 == 7) {
+						Location oreloc = new Location(world, x, y, z);
+						world.getBlockAt(oreloc).setType(getRandomMaterial());
+					}
+				}
+			}
+		} 
+	}
+	public static Material getRandomMaterial() {
+		Random rn = new Random();
+		return ores.get(rn.nextInt(ores.size()));
+	}
+	public static void fillMaterials() {
+		ores.add(Material.DIAMOND_ORE);
+		
+		ores.add(Material.IRON_ORE);
+		ores.add(Material.IRON_ORE);
+		ores.add(Material.IRON_ORE);
+		ores.add(Material.IRON_ORE);
+		ores.add(Material.IRON_ORE);
+		ores.add(Material.IRON_ORE);
+		
+		ores.add(Material.GOLD_ORE);
+		ores.add(Material.GOLD_ORE);
+		ores.add(Material.GOLD_ORE);
+		
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		ores.add(Material.COAL_ORE);
+		
 	}
 
 }

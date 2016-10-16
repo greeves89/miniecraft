@@ -4,4 +4,6 @@ version: 1.0.1
 main: de.plots.main.main
 commands:
      plot:
-          description: This Command is just for test
+          description: Type /plot help to all Commands
+     admin:
+          description: This is a Admin command

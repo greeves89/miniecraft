@@ -11,9 +11,6 @@ import de.plots.listener.PlotBuildBreak;
 import de.plots.mysql.mysql;
 
 public class main extends JavaPlugin {
- 
-	public static int waysize = 3;
-	public static int plotsize = 32;
 	
 	public static boolean debug = true;
 	
@@ -24,6 +21,7 @@ public class main extends JavaPlugin {
 		//MySQL Connection
 		mysql.connect();
 		mysql.createTable();
+		mysql.createPlotInfoTable();
 		
 		PlotGeneration.registerPlots();
 		

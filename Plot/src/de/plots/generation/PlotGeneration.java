@@ -15,12 +15,12 @@ import org.bukkit.material.MaterialData;
 import de.plots.main.main;
 import de.plots.mysql.mysql;
 import de.plots.mysql.plotmysql;
+import de.plots.utils.PlotInformation;
 
 public class PlotGeneration {
 
 	public static Material boardermaterial = Material.DIAMOND_BLOCK;
 	public static Material waymaterial = Material.QUARTZ_BLOCK;
-	public static World plotworld = Bukkit.getWorld("world");
 	public static ArrayList<PlotObject> plotLists = new ArrayList<>();
 			
 			//new PlotObject();
@@ -38,11 +38,11 @@ public class PlotGeneration {
 				
 				//World: world | start_x | start_z | end_x | end_y | id | owner 
 				
-				SinglePlotGeneration.generateSinglePlot(world, min, max, main.waysize, 5, 65, waymaterial, boardermaterial);
+				SinglePlotGeneration.generateSinglePlot(world, min, max, PlotInformation.waysize, 5, 65, waymaterial, boardermaterial);
 	
 				
 				
-				plotmysql.insertPlot(min, max, main.waysize);
+				plotmysql.insertPlot(min, max, PlotInformation.waysize);
 				int plotid = plotmysql.getLastPlotID();
 				PlotObject plot = new PlotObject(min, max, plotid, null);
 				addPlottoList(plot);
@@ -94,8 +94,8 @@ public class PlotGeneration {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * from Plots left outer join owner_plot on Plots.ID = owner_plot.plot_id left outer join owner on owner_plot.owner_id = owner.ownerid");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Location min = new Location(PlotGeneration.plotworld, rs.getInt("start_x"), 0, rs.getInt("start_z"));
-				Location max = new Location(PlotGeneration.plotworld, rs.getInt("end_x"), 0, rs.getInt("end_z"));
+				Location min = new Location(PlotInformation.plotworld, rs.getInt("start_x"), 0, rs.getInt("start_z"));
+				Location max = new Location(PlotInformation.plotworld, rs.getInt("end_x"), 0, rs.getInt("end_z"));
 				OfflinePlayer of;
 				PlotObject plot;
 				System.out.println(rs.getString("ownername") + " ");

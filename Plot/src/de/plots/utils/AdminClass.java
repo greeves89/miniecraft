@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
-import com.mysql.jdbc.Messages;
-
 public class AdminClass {
 
-	private static ArrayList<Player> inAdminmode = new ArrayList<Player>();
+	public static ArrayList<Player> inAdminmode = new ArrayList<Player>();
 	
 	public static void addPlayer(Player p) {
 		if (p.hasPermission("server.admin")) {
