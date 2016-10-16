@@ -36,7 +36,7 @@ public class PlotGeneration {
 				Location min = new Location(world, x, 0, z);
 				Location max = new Location(world, x + gswidht, 0, z + gswidht);
 				
-				//World: world | start_x start_z | end_x end_y | id | owner 
+				//World: world | start_x | start_z | end_x | end_y | id | owner 
 				
 				SinglePlotGeneration.generateSinglePlot(world, min, max, main.waysize, 5, 65, waymaterial, boardermaterial);
 	

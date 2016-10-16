@@ -81,4 +81,32 @@ public class plotjava {
 //		}
 		return -1;
 	}
+	
+	
+	
+	/**
+	 * return's true if Player is on a plot where he can build
+	 * 'PLOTJAVA Methode' - erfoldert update Methode bevor Methode zu 100% funktioniert
+	 * There can be bug's and the method can cause lags
+	 *´@author Eric
+	 */
+	
+	
+	public static boolean isPlotOwnedByPlayer(Player p) {
+		Location pLoc = p.getLocation();
+		for (int i = 0; i < PlotGeneration.plotLists.size(); i++) {
+			PlotObject plot = PlotGeneration.getCorrespondingPlotObject(PlotGeneration.plotLists.get(i).getPlotId());
+			Location min = plot.getMin();
+			Location max = plot.getMax();
+			//Checking if Player is on the current Plot...
+			if (min.getBlockX() < pLoc.getBlockX() && min.getBlockZ() < pLoc.getBlockZ() && max.getBlockX() > pLoc.getBlockX() && max.getBlockZ() > pLoc.getBlockZ()) {
+				//Check if the Player own the PLot
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+	
 }
