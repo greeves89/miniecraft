@@ -22,14 +22,14 @@ public class WorldGeneration {
 			wc.createWorld();
 			World w = Bukkit.getWorld(worldname);
 			if (w != null) {
-				sender.sendMessage("§8Welt erfolgreich erstellt!");
-				sender.sendMessage("§8Worldname: §c" + worldname);
+				sender.sendMessage("Â§8Welt erfolgreich erstellt!");
+				sender.sendMessage("Â§8Worldname: ï¿½c" + worldname);
 			} else {
-				sender.sendMessage("§cEs ist ein Problem beim erstellen der Welt aufgetreten!");
+				sender.sendMessage("ï¿½cEs ist ein Problem beim erstellen der Welt aufgetreten!");
 			}
 		} else {
-			sender.sendMessage("§cDiese Welt existiert bereits!");
-			sender.sendMessage("§8Worldname: §c" + worldname);
+			sender.sendMessage("ï¿½cDiese Welt existiert bereits!");
+			sender.sendMessage("ï¿½8Worldname: ï¿½c" + worldname);
 		}
 		
 	}

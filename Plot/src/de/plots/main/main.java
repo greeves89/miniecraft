@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plots.commands.PlotCommand;
+import de.plots.config.MySQLConfig;
 import de.plots.generation.GenerationGUI;
 import de.plots.generation.PlotGeneration;
 import de.plots.listener.PlotBuildBreak;
@@ -17,11 +18,14 @@ public class main extends JavaPlugin {
 	public void onEnable() {
 		registerEvents();
 		registerCommands();
+		registerConfigs();
 		
 		//MySQL Connection
 		mysql.connect();
-		mysql.createTable();
+		mysql.createPlotsTable();
 		mysql.createPlotInfoTable();
+		mysql.createOwnerPlotTable();
+		mysql.createOwnerTable();
 		
 		PlotGeneration.registerPlots();
 		
@@ -43,5 +47,9 @@ public class main extends JavaPlugin {
 		
 		pm.registerEvents(new PlotBuildBreak(), this);
 		pm.registerEvents(new GenerationGUI(), this);
+	}
+	private void registerConfigs() {
+		MySQLConfig.setConfig();
+		MySQLConfig.readConfig();
 	}
 }

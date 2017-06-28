@@ -113,7 +113,7 @@ public class plotmysql {
 		
 		PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(p);
 		p.sendMessage("Das Plot wurde geclaimt!");
-		// insert into owner_plot einfÃ¼gen
+		// insert into owner_plot einfügen
 		
 		
 	}
@@ -135,6 +135,7 @@ public class plotmysql {
 		System.out.println("X: "+minPlotLocation.getBlockX()+"Y: "+minPlotLocation.getBlockY()+"Z: "+minPlotLocation.getBlockZ());
 		System.out.println("X: "+maxPlotLocation.getBlockX()+"Y: "+maxPlotLocation.getBlockY()+"Z: "+maxPlotLocation.getBlockZ());
 		
+		minPlotLocation.setWorld(minPlotLocation.getWorld());
 		minPlotLocation.setY(70);
 		minPlotLocation.setZ(minPlotLocation.getZ());
 		minPlotLocation.setX(minPlotLocation.getX() + PlotInformation.plotsize / 2);

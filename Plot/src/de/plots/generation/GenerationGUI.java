@@ -60,15 +60,16 @@ public class GenerationGUI implements Listener {
 			if (e.getWhoClicked() instanceof Player) {
 				Player p = (Player) e.getWhoClicked();
 				if (p.hasPermission("server.admin")) {
-					if (e.getCurrentItem().getType() != Material.THIN_GLASS) {
-						e.setCancelled(true);
-					} else if (e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)) {
-						ItemStack wayItem = e.getClickedInventory().getItem(9*2+2);
-						ItemStack borderitem = e.getClickedInventory().getItem(9*2+2);
-						ItemStack claimedborderitem = e.getClickedInventory().getItem(9*2+2);
+					if (e.getCurrentItem().getType().equals(Material.EMERALD_BLOCK)) {
+						ItemStack wayItem = e.getClickedInventory().getItem(8+3);
+						ItemStack borderitem = e.getClickedInventory().getItem(8+5);
+						ItemStack claimedborderitem = e.getClickedInventory().getItem(8+7);
 						
-						
+						PlotGeneration.generatePlots(p.getWorld(), p.getLocation(), 32, 3, borderitem.getType(), wayItem.getType());
 						p.closeInventory();
+						e.setCancelled(true);
+					} else if (e.getCurrentItem().getType() == Material.THIN_GLASS) {
+						e.setCancelled(true);
 					}
 				} else {
 					p.closeInventory();

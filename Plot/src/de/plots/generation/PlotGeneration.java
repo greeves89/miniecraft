@@ -26,19 +26,22 @@ public class PlotGeneration {
 			//new PlotObject();
 	
 	
-	public static void generatePlots(World world, Location middle, int gswidht, int plotamount) {
+	public static void generatePlots(World world, Location middle, int gswidht, int plotamount, Material boarder, Material way) {
 		
-		mysql.deleteOwnerPlotTable();
-		mysql.deletePlotsTable();
 		
-		for (int x = middle.getBlockX(); x < (gswidht * plotamount) - 1; x+=gswidht)  {
-			for (int z = middle.getBlockZ(); z < (gswidht * plotamount) - 1; z += gswidht) {
+		
+//		mysql.deleteOwnerPlotTable();
+//		mysql.deletePlotsTable();
+		
+		for (int x = middle.getBlockX(); x < middle.getBlockX() + (gswidht * plotamount) - 1; x+=gswidht)  {
+			for (int z = middle.getBlockZ(); z < middle.getBlockZ() + (gswidht * plotamount) - 1; z += gswidht) {
+				System.out.println("test");
 				Location min = new Location(world, x, 0, z);
 				Location max = new Location(world, x + gswidht, 0, z + gswidht);
 				
 				//World: world | start_x | start_z | end_x | end_y | id | owner 
 				
-				SinglePlotGeneration.generateSinglePlot(world, min, max, PlotInformation.waysize, 5, 65, waymaterial, boardermaterial);
+				SinglePlotGeneration.generateSinglePlot(world, min, max, PlotInformation.waysize, 5, 65, way, boarder);
 	
 				
 				

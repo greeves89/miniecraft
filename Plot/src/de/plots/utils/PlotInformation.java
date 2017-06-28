@@ -7,6 +7,7 @@ public class PlotInformation {
 	
 	public static int waysize = 3;
 	public static int plotsize = 32;
-	public static World plotworld = Bukkit.getWorld("world");
+	public static World plotworld = Bukkit.getWorld("plotworld");
+	
 	
 }

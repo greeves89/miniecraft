@@ -106,7 +106,7 @@ public class SinglePlotGeneration {
 		Random rn = new Random();
 		return ores.get(rn.nextInt(ores.size()));
 	}
-	public static void fillMaterials() {
+	private static void fillMaterials() {
 		ores.add(Material.DIAMOND_ORE);
 		
 		ores.add(Material.IRON_ORE);

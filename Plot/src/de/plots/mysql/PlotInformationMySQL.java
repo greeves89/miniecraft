@@ -11,7 +11,9 @@ import de.plots.utils.PlotInformation;
 
 public class PlotInformationMySQL {
 
-	public static void setInformation(String _worldname, int _waysize, int _plotSize) {
+	// GO TO PlotInformationConfig Class - outdated
+	
+	private static void setInformation(String _worldname, int _waysize, int _plotSize) {
 		//delete
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("DELETE FROM PlotInfo WHERE worldname = ?");
@@ -31,7 +33,7 @@ public class PlotInformationMySQL {
 			e.printStackTrace();
 		}
 	}
-	public static void readInformationTable() {
+	private static void readInformationTable() {
 		int waysize = -1;
 		int plotsize = -1;
 		World plotworld = Bukkit.getWorld("not_init");

@@ -12,6 +12,8 @@ public class WorldTeleportation {
 		if (w != null) {
 			e.teleport(w.getSpawnLocation());
 			e.sendMessage("§8Du wurdest in die Welt §c" + worldname + " §8teleportiert!");
+		} else {
+			e.sendMessage("Error - Welt wurde nicht gefunden!");
 		}
 	}
 	
