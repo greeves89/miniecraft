@@ -181,8 +181,8 @@ public class plotmysql {
 	public static ArrayList<Location> getPlotLocation(int _id) {
 		ArrayList<Location> plotLocationList = new ArrayList<>();
 		System.out.println("Suche die Location von PlotID:" +_id);
-		Location min = new Location(PlotInformation.plotworld, 0, 0, 0);
-		Location max = new Location(PlotInformation.plotworld, 0, 0, 0);
+		Location min = new Location(PlotInformation.plotworld.getWorld(), 0, 0, 0);
+		Location max = new Location(PlotInformation.plotworld.getWorld(), 0, 0, 0);
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * FROM Plots WHERE ID = ?");
 			ps.setInt(1, _id);
@@ -235,7 +235,7 @@ public class plotmysql {
 				if (getPlotLocation(plotid) != null) {
 					Location min = getPlotLocation(plotid).get(0);
 					Location max = getPlotLocation(plotid).get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld, min, max, PlotInformation.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
 					PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(null);
 				} else {
 					p.sendMessage("Ein Fehler ist aufgetreten!");

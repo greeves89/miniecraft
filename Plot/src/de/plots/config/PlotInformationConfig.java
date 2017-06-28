@@ -39,15 +39,32 @@ public class PlotInformationConfig {
 
     public static void readConfig() {
         
-        
+        PlotInformation.plotworld = getPlotWorldSpawn();
+        PlotInformation.plotsize = getPlotsize();
+        PlotInformation.waysize = getWaysize();
        
     }
-    public static Location getPlotWorldSpawn() {
+    private static Location getPlotWorldSpawn() {
     	YamlConfiguration cfg = getConfiguration();	
     	int x = cfg.getInt("x");
     	int y = cfg.getInt("y");
     	int z = cfg.getInt("z");
     	String worldname = cfg.getString("worldname");
     	return new Location(Bukkit.getWorld(worldname), x, y, z);
+    }
+    private static int getWaysize() {
+    	YamlConfiguration cfg = getConfiguration();	
+    	return cfg.getInt("waysize");
+    }
+    private static int getPlotsize() {
+    	YamlConfiguration cfg = getConfiguration();	
+    	return cfg.getInt("plotsize");
+    }
+    public static void setPlotWorldSpawnlocation(Location loc) {
+    	YamlConfiguration cfg = getConfiguration();	
+    	cfg.set("x", loc.getBlockX());
+    	cfg.set("y", loc.getBlockY());
+    	cfg.set("z", loc.getBlockZ());
+    	cfg.set("worldname", loc.getWorld().getName());
     }
 }

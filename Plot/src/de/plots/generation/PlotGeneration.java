@@ -97,8 +97,8 @@ public class PlotGeneration {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT * from Plots left outer join owner_plot on Plots.ID = owner_plot.plot_id left outer join owner on owner_plot.owner_id = owner.ownerid");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Location min = new Location(PlotInformation.plotworld, rs.getInt("start_x"), 0, rs.getInt("start_z"));
-				Location max = new Location(PlotInformation.plotworld, rs.getInt("end_x"), 0, rs.getInt("end_z"));
+				Location min = new Location(PlotInformation.plotworld.getWorld(), rs.getInt("start_x"), 0, rs.getInt("start_z"));
+				Location max = new Location(PlotInformation.plotworld.getWorld(), rs.getInt("end_x"), 0, rs.getInt("end_z"));
 				OfflinePlayer of;
 				PlotObject plot;
 				System.out.println(rs.getString("ownername") + " ");

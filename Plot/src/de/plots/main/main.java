@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.plots.commands.PlotCommand;
 import de.plots.config.MySQLConfig;
+import de.plots.config.PlotInformationConfig;
 import de.plots.generation.GenerationGUI;
 import de.plots.generation.PlotGeneration;
 import de.plots.listener.PlotBuildBreak;
@@ -51,5 +52,8 @@ public class main extends JavaPlugin {
 	private void registerConfigs() {
 		MySQLConfig.setConfig();
 		MySQLConfig.readConfig();
+		
+		PlotInformationConfig.setConfig();
+		PlotInformationConfig.readConfig();
 	}
 }

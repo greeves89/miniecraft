@@ -51,6 +51,6 @@ public class PlotInformationMySQL {
 		}
 		PlotInformation.plotsize = plotsize;
 		PlotInformation.waysize = waysize;
-		PlotInformation.plotworld = plotworld;
+		PlotInformation.plotworld = plotworld.getSpawnLocation();
 	}
 }

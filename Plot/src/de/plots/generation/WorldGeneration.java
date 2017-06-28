@@ -8,6 +8,8 @@ import org.bukkit.WorldType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.generator.ChunkGenerator;
 
+import de.plots.config.PlotInformationConfig;
+
 public class WorldGeneration {
 
 	public static void createVoidWorld(String worldname, CommandSender sender) {
@@ -23,13 +25,14 @@ public class WorldGeneration {
 			World w = Bukkit.getWorld(worldname);
 			if (w != null) {
 				sender.sendMessage("§8Welt erfolgreich erstellt!");
-				sender.sendMessage("§8Worldname: �c" + worldname);
+				sender.sendMessage("§8Worldname: §c" + worldname);
+				PlotInformationConfig.setPlotWorldSpawnlocation(w.getSpawnLocation());
 			} else {
-				sender.sendMessage("�cEs ist ein Problem beim erstellen der Welt aufgetreten!");
+				sender.sendMessage("§cEs ist ein Problem beim Erstellen er Welt aufgetreten!");
 			}
 		} else {
-			sender.sendMessage("�cDiese Welt existiert bereits!");
-			sender.sendMessage("�8Worldname: �c" + worldname);
+			sender.sendMessage("§cDiese Welt existiert bereis!");
+			sender.sendMessage("§8Worldname: §c" + worldname);
 		}
 		
 	}

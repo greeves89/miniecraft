@@ -25,7 +25,7 @@ public class PlotCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (sender instanceof Player) {
-			
+			Player p = (Player) sender;
 			if (args[0].equalsIgnoreCase("createworld")) {
 				if (sender.hasPermission("plot.command.createworld")) {
 					if (args.length == 2) {
@@ -38,6 +38,8 @@ public class PlotCommand implements CommandExecutor {
 				if (sender.hasPermission("plot.command.worldtp")) {
 					if (args.length == 2) {
 						WorldTeleportation.teleportEntityInWorld((Player) sender, args[1].toString());
+					} else if (args.length == 1){
+						p.teleport(PlotInformation.plotworld);
 					} else {
 						sender.sendMessage("§cUsage: /plot worldtp <worldname>");
 					}
@@ -62,25 +64,21 @@ public class PlotCommand implements CommandExecutor {
 				}
 			} else if (args[0].equalsIgnoreCase("unclaim")) {
 				if (sender.hasPermission("plot.command.unclaim")) {
-					Player p = (Player) sender;
 					plotmysql.unclaimPlot(p);
 				}
 			} else if (args[0].equalsIgnoreCase("reset")) {
 				if (sender.hasPermission("plot.command.reset")) {
-					Player p = (Player) sender;
 					ArrayList<Location> locations = plotmysql.getPlotLocation(plotmysql.getPlotID(p));
 					Location min = locations.get(0);
 					Location max = locations.get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld, min, max, PlotInformation.waysize, 5, 65, PlotGeneration.waymaterial, PlotGeneration.boardermaterial);
+					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, 5, 65, PlotGeneration.waymaterial, PlotGeneration.boardermaterial);
 				}
 			} else if (args[0].equalsIgnoreCase("check")) {
 				if (sender.hasPermission("plot.command.reset")) {
-					Player p = (Player) sender;
 					p.sendMessage("§9Registrierte Plots: §c" + PlotGeneration.plotLists.size());
 				}
 			} else if (args[0].equalsIgnoreCase("getInfo")) {
 				if (sender.hasPermission("plot.command.getid")) {
-					Player p = (Player) sender;
 					int plotid = plotjava.getPlotID(p);
 					String owner = plotjava.getPlotOwner(plotid);
 					if (owner == null) {
