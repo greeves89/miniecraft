@@ -66,5 +66,11 @@ public class PlotInformationConfig {
     	cfg.set("y", loc.getBlockY());
     	cfg.set("z", loc.getBlockZ());
     	cfg.set("worldname", loc.getWorld().getName());
+    	try {
+			cfg.save(getConfigFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

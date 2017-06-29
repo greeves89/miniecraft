@@ -16,14 +16,19 @@ public class PlotBuildBreak implements Listener {
 	public void onBuild(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		if (!plotjava.isPlotOwnedByPlayer(p)) {
-			e.setCancelled(true);
+			if (!p.hasPermission("server.admin")) {
+				e.setCancelled(true);
+			}
+			
 		}
 	}
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		if (!plotjava.isPlotOwnedByPlayer(p)) {
-			e.setCancelled(true);
+			if (!p.hasPermission("server.admin")) {
+				e.setCancelled(true);
+			}
 		}
 	}
 	

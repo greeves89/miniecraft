@@ -26,7 +26,7 @@ public class PlotGeneration {
 			//new PlotObject();
 	
 	
-	public static void generatePlots(World world, Location middle, int gswidht, int plotamount, Material boarder, Material way) {
+	public static void generatePlots(World world, Location middle, int gswidht, int plotamount, Material boarder, Material way, int waysize) {
 		
 		
 		
@@ -41,7 +41,7 @@ public class PlotGeneration {
 				
 				//World: world | start_x | start_z | end_x | end_y | id | owner 
 				
-				SinglePlotGeneration.generateSinglePlot(world, min, max, PlotInformation.waysize, 5, 65, way, boarder);
+				SinglePlotGeneration.generateSinglePlot(world, min, max, waysize, 5, 65, way, boarder);
 	
 				
 				

@@ -94,8 +94,7 @@ public class plotjava {
 	
 	public static boolean isPlotOwnedByPlayer(Player p) {
 		Location pLoc = p.getLocation();
-		for (int i = 0; i < PlotGeneration.plotLists.size(); i++) {
-			PlotObject plot = PlotGeneration.getCorrespondingPlotObject(PlotGeneration.plotLists.get(i).getPlotId());
+		for (PlotObject plot : PlotGeneration.plotLists) {
 			Location min = plot.getMin();
 			Location max = plot.getMax();
 			//Checking if Player is on the current Plot...

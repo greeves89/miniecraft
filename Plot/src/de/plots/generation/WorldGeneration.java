@@ -1,6 +1,7 @@
 package de.plots.generation;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
@@ -26,7 +27,8 @@ public class WorldGeneration {
 			if (w != null) {
 				sender.sendMessage("§8Welt erfolgreich erstellt!");
 				sender.sendMessage("§8Worldname: §c" + worldname);
-				PlotInformationConfig.setPlotWorldSpawnlocation(w.getSpawnLocation());
+				PlotInformationConfig.setPlotWorldSpawnlocation(new Location(w, 0, 120, 0));
+				PlotInformationConfig.readConfig();
 			} else {
 				sender.sendMessage("§cEs ist ein Problem beim Erstellen er Welt aufgetreten!");
 			}
