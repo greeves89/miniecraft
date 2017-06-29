@@ -1,11 +1,17 @@
 package de.plots.generation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+
+import de.plots.mysql.plotmysql;
+import de.plots.utils.PlotInformation;
+import de.plots.utils.plotjava;
 
 public class SinglePlotGeneration {
 
@@ -129,5 +135,30 @@ public class SinglePlotGeneration {
 		ores.add(Material.COAL_ORE);
 		
 	}
-
+	public static void claimPlot(Player p, int plotID) {
+		PlotGeneration.getCorrespondingPlotObject(plotID).setOwner(p);
+		setBoarder(plotID, true);
+	}
+	public static void setBoarder(int plotID, boolean claim) {
+		ArrayList<Location> locs = plotmysql.getPlotLocation(plotID);
+		Location min = locs.get(0);
+		Location max = locs.get(1);
+		int way = PlotInformation.waysize;
+		int grasshight = PlotInformation.grasshight;
+		int stonehight = PlotInformation.stonehight;
+		World world = PlotInformation.plotworld.getWorld();
+		Material materialToFill;
+		if (claim) {
+			materialToFill = PlotInformation.claimedBorderMaterial;
+		} else {
+			materialToFill = PlotInformation.unclaimedBorderMaterial;
+		}
+		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
+			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
+				// Generating the boarder blocks
+				Location boarder = new Location(world, x, stonehight + grasshight, z);
+				world.getBlockAt(boarder).setType(materialToFill);
+			}
+		}
+	}
 }

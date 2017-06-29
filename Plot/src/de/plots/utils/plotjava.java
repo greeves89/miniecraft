@@ -59,12 +59,12 @@ public class plotjava {
 		}
 	}
 	public static ArrayList<Location> getPlotLocation(int _plotid) {
-//		ArrayList<Location> locs = new ArrayList<>();
-//		Location min; 
-//		Location max;
-//		for (int i = 0; i < PlotGeneration.plotLists.size(); i++) {
-//			PlotObject plot = new PlotObject(_min, _max, , _owner)
-//		}
+		ArrayList<Location> locs = new ArrayList<>();
+		Location min; 
+		Location max;
+		for (PlotObject plot : PlotGeneration.plotLists) {
+			//TODO: OUTDATED! plotmysql.getPlotLocation IS ALTERNATE
+		}
 		
 		return null;
 	}

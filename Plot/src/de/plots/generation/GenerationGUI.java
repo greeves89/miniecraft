@@ -17,6 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import de.plots.config.PlotInformationConfig;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8.Action;
 import net.md_5.bungee.api.ChatColor;
 
@@ -107,7 +108,9 @@ public class GenerationGUI implements Listener {
 						int plotsize = Integer.parseInt(e.getClickedInventory().getItem(9*3+4).getItemMeta().getDisplayName()) * 2;
 						int plotamount = Integer.parseInt(e.getClickedInventory().getItem(9*4+4).getItemMeta().getDisplayName());
 						
-						
+						PlotInformationConfig.setWayMaterial(wayItem.getType());
+						PlotInformationConfig.setUnclaimedBoarderMaterial(borderitem.getType());
+						PlotInformationConfig.setClaimedBoarderMaterial(claimedborderitem.getType());
 						PlotGeneration.generatePlots(p.getWorld(), p.getLocation(), plotsize, plotamount, borderitem.getType(), wayItem.getType(), waysize);
 						p.closeInventory();
 						e.setCancelled(true);

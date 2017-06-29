@@ -111,7 +111,7 @@ public class plotmysql {
 			e.printStackTrace();
 		}
 		
-		PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(p);
+		SinglePlotGeneration.claimPlot(p, getPlotID(p));
 		p.sendMessage("Das Plot wurde geclaimt!");
 		// insert into owner_plot einfügen
 		
@@ -170,7 +170,7 @@ public class plotmysql {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			PlotGeneration.getCorrespondingPlotObject(plotID).setOwner(p);
+			SinglePlotGeneration.claimPlot(p, plotID);
 			p.sendMessage("Das Plot wurde geclaimt!");	
 		}else{
 			p.sendMessage("Fehler beim beanspruchen eines Plots.");	
@@ -235,7 +235,7 @@ public class plotmysql {
 				if (getPlotLocation(plotid) != null) {
 					Location min = getPlotLocation(plotid).get(0);
 					Location max = getPlotLocation(plotid).get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, 5, 65, Material.QUARTZ_BLOCK, Material.ANVIL);
+					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, PlotInformation.grasshight, PlotInformation.stonehight, PlotInformation.wayMaterial, PlotInformation.unclaimedBorderMaterial);
 					PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(null);
 				} else {
 					p.sendMessage("Ein Fehler ist aufgetreten!");

@@ -41,7 +41,7 @@ public class PlotGeneration {
 				
 				//World: world | start_x | start_z | end_x | end_y | id | owner 
 				
-				SinglePlotGeneration.generateSinglePlot(world, min, max, waysize, 5, 65, way, boarder);
+				SinglePlotGeneration.generateSinglePlot(world, min, max, waysize, PlotInformation.grasshight, PlotInformation.stonehight, way, boarder);
 	
 				
 				

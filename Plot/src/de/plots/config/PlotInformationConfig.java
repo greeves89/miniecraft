@@ -5,7 +5,9 @@ import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import de.plots.mysql.mysql;
 import de.plots.utils.PlotInformation;
@@ -30,6 +32,11 @@ public class PlotInformationConfig {
         
         cfg.addDefault("waysize", 3);
         cfg.addDefault("plotsize", 32);
+        cfg.addDefault("claimedBoarderMaterial", 126);
+        cfg.addDefault("unclaimedBoarderMaterial", 44);
+        cfg.addDefault("wayMaterial", 155);
+        cfg.addDefault("grasshight", 5);
+        cfg.addDefault("stonehight", 65);
         try {
             cfg.save(getConfigFile());
         } catch (IOException e) {
@@ -42,7 +49,38 @@ public class PlotInformationConfig {
         PlotInformation.plotworld = getPlotWorldSpawn();
         PlotInformation.plotsize = getPlotsize();
         PlotInformation.waysize = getWaysize();
+        PlotInformation.claimedBorderMaterial = getClaimedBoarderMaterial();
+        PlotInformation.unclaimedBorderMaterial = getUnclaimedBoarderMaterial();
+        PlotInformation.grasshight = getGrasshight();
+        PlotInformation.stonehight = getStonehight();
+        PlotInformation.wayMaterial = getWayMaterial();
        
+    }
+    private static Material getWayMaterial() {
+    	YamlConfiguration cfg = getConfiguration();
+    	@SuppressWarnings("deprecation")
+		ItemStack item = new ItemStack(cfg.getInt("wayMaterial"));
+    	return item.getType(); 
+	}
+
+	private static int getGrasshight() {
+		YamlConfiguration cfg = getConfiguration();
+		return cfg.getInt("grasshight");
+	}
+    private static int getStonehight() {
+		YamlConfiguration cfg = getConfiguration();
+		return cfg.getInt("stonehight");
+	}
+	@SuppressWarnings("deprecation")
+	private static Material getUnclaimedBoarderMaterial() {
+    	YamlConfiguration cfg = getConfiguration();
+    	return new ItemStack(cfg.getInt("unclaimedBoarderMaterial")).getType();
+	}
+
+	@SuppressWarnings("deprecation")
+	private static Material getClaimedBoarderMaterial() {
+    	YamlConfiguration cfg = getConfiguration();
+    	return new ItemStack(cfg.getInt("claimedBoarderMaterial")).getType();
     }
     private static Location getPlotWorldSpawn() {
     	YamlConfiguration cfg = getConfiguration();	
@@ -69,7 +107,36 @@ public class PlotInformationConfig {
     	try {
 			cfg.save(getConfigFile());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    @SuppressWarnings("deprecation")
+	public static void setClaimedBoarderMaterial(Material mat) {
+    	YamlConfiguration cfg = getConfiguration();
+    	cfg.set("claimedBoarderMaterial", mat.getId());
+    	try {
+			cfg.save(getConfigFile());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    @SuppressWarnings("deprecation")
+	public static void setUnclaimedBoarderMaterial(Material mat) {
+    	YamlConfiguration cfg = getConfiguration();
+    	cfg.set("unclaimedBoarderMaterial", mat.getId());
+    	try {
+			cfg.save(getConfigFile());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    @SuppressWarnings("deprecation")
+	public static void setWayMaterial(Material mat) {
+    	YamlConfiguration cfg = getConfiguration();
+    	cfg.set("wayMaterial", mat.getId());
+    	try {
+			cfg.save(getConfigFile());
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
     }

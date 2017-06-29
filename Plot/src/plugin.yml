@@ -1,5 +1,5 @@
 name: Plots
-author: pongy20, marcelm19t
+author: pongy20, marcelm19t, greeves89
 version: 1.0.1
 main: de.plots.main.main
 commands:
