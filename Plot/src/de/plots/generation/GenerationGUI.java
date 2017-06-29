@@ -45,11 +45,11 @@ public class GenerationGUI implements Listener {
 		
 		List<String> borderlore = new ArrayList<>();
 		borderlore.add("§9Wähle aus, aus welchem Item die Begrenzung bestehen soll!");
-		ItemStack borderitem = ItemCreation.createItem(Material.DIAMOND_BLOCK, "§cBegrenzungs-Item", borderlore);
+		ItemStack borderitem = ItemCreation.createItem(Material.STONE_SLAB2, "§cBegrenzungs-Item", borderlore);
 		
 		List<String> claimedborderlore = new ArrayList<>();
 		claimedborderlore.add("§9Wähle aus, aus welchem Item die geclaimte Begrenzung bestehen soll!");
-		ItemStack claimedborderitem = ItemCreation.createItem(Material.QUARTZ_BLOCK, "§cGeclaimte Begrenzung Itemen", claimedborderlore);
+		ItemStack claimedborderitem = ItemCreation.createItem(Material.WOOD_STEP, "§cGeclaimte Begrenzung Itemen", claimedborderlore);
 		
 		List<String> waysizeItemLore = new ArrayList<>();
 		waysizeItemLore.add("§9Wähle aus, wie groß der Weg zwischen den Plots sein soll!");
