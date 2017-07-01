@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.plots.config.PlotInformationConfig;
 import de.plots.generation.GenerationGUI;
 import de.plots.generation.PlotGeneration;
 import de.plots.generation.PlotObject;
@@ -93,6 +94,12 @@ public class PlotCommand implements CommandExecutor {
 						p.sendMessage("§cDu stehst auf keinem Plot!");
 					}
 					
+				}
+			} else if (args[0].equalsIgnoreCase("insertPlotworld")) {
+				if (sender instanceof Player) {
+					if (p.hasPermission("plot.command.insertworld")) {
+						PlotInformationConfig.setPlotWorldSpawnlocation(p.getLocation());
+					}	
 				}
 			}
 			

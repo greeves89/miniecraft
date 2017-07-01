@@ -7,6 +7,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 
 import de.plots.config.PlotInformationConfig;
@@ -27,7 +28,12 @@ public class WorldGeneration {
 			if (w != null) {
 				sender.sendMessage("§8Welt erfolgreich erstellt!");
 				sender.sendMessage("§8Worldname: §c" + worldname);
-				PlotInformationConfig.setPlotWorldSpawnlocation(new Location(w, 0, 120, 0));
+				if (sender instanceof Player) {
+					Player p = (Player) sender;
+					p.teleport(w.getSpawnLocation());
+					PlotInformationConfig.setPlotWorldSpawnlocation(p.getLocation());
+				}
+				
 				PlotInformationConfig.readConfig();
 			} else {
 				sender.sendMessage("§cEs ist ein Problem beim Erstellen er Welt aufgetreten!");

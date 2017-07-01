@@ -153,11 +153,18 @@ public class SinglePlotGeneration {
 		} else {
 			materialToFill = PlotInformation.unclaimedBorderMaterial;
 		}
-		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
-			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
+		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
+			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
 				// Generating the boarder blocks
 				Location boarder = new Location(world, x, stonehight + grasshight, z);
 				world.getBlockAt(boarder).setType(materialToFill);
+			}
+		}
+		//DELETING THE MIDDLE AND MAKE THE BOARDER COMPLETE
+		for (int x = min.getBlockX() + way; x < max.getBlockX() - way - 1; x++) {
+			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
+				Location boarder = new Location(world, x, stonehight + grasshight, z);
+				world.getBlockAt(boarder).setType(Material.AIR);
 			}
 		}
 	}

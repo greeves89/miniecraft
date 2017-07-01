@@ -25,11 +25,6 @@ public class PlotInformationConfig {
         YamlConfiguration cfg = getConfiguration();
         cfg.options().copyDefaults(true); 
         
-        cfg.addDefault("worldname", "plotworld");
-        cfg.addDefault("x", 0);
-        cfg.addDefault("y", 70);
-        cfg.addDefault("z", 0);
-        
         cfg.addDefault("waysize", 3);
         cfg.addDefault("plotsize", 32);
         cfg.addDefault("claimedBoarderMaterial", 126);
@@ -84,11 +79,13 @@ public class PlotInformationConfig {
     }
     private static Location getPlotWorldSpawn() {
     	YamlConfiguration cfg = getConfiguration();	
-    	int x = cfg.getInt("x");
-    	int y = cfg.getInt("y");
-    	int z = cfg.getInt("z");
+    	double x = cfg.getDouble("x");
+    	double y = cfg.getDouble("y");
+    	double z = cfg.getDouble("z");
+    	float pitch = (float) cfg.getDouble("pitch");
+    	float yaw = (float) cfg.getDouble("yaw");
     	String worldname = cfg.getString("worldname");
-    	return new Location(Bukkit.getWorld(worldname), x, y, z);
+    	return new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
     }
     private static int getWaysize() {
     	YamlConfiguration cfg = getConfiguration();	
@@ -100,9 +97,11 @@ public class PlotInformationConfig {
     }
     public static void setPlotWorldSpawnlocation(Location loc) {
     	YamlConfiguration cfg = getConfiguration();	
-    	cfg.set("x", loc.getBlockX());
-    	cfg.set("y", loc.getBlockY());
-    	cfg.set("z", loc.getBlockZ());
+    	cfg.set("x", loc.getX());
+    	cfg.set("y", loc.getY());
+    	cfg.set("z", loc.getZ());
+    	cfg.set("pitch", loc.getPitch());
+    	cfg.set("yaw", loc.getYaw());
     	cfg.set("worldname", loc.getWorld().getName());
     	try {
 			cfg.save(getConfigFile());
