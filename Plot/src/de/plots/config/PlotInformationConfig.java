@@ -6,9 +6,12 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import de.plots.generation.WorldGeneration;
 import de.plots.mysql.mysql;
 import de.plots.utils.PlotInformation;
 
@@ -41,6 +44,8 @@ public class PlotInformationConfig {
 
     public static void readConfig() {
         
+    	WorldGeneration.getWorldCreator(getWorldName()).createWorld();
+    	Bukkit.broadcastMessage(Bukkit.getWorlds().toString());
         PlotInformation.plotworld = getPlotWorldSpawn();
         PlotInformation.plotsize = getPlotsize();
         PlotInformation.waysize = getWaysize();
@@ -86,6 +91,10 @@ public class PlotInformationConfig {
     	float yaw = (float) cfg.getDouble("yaw");
     	String worldname = cfg.getString("worldname");
     	return new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
+    }
+    private static String getWorldName() {
+    	YamlConfiguration cfg = getConfiguration();
+    	return cfg.getString("worldname");
     }
     private static int getWaysize() {
     	YamlConfiguration cfg = getConfiguration();	
@@ -133,6 +142,15 @@ public class PlotInformationConfig {
 	public static void setWayMaterial(Material mat) {
     	YamlConfiguration cfg = getConfiguration();
     	cfg.set("wayMaterial", mat.getId());
+    	try {
+			cfg.save(getConfigFile());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    public static void update(String path, Object value) {
+    	YamlConfiguration cfg = getConfiguration();
+    	cfg.set(path, value);
     	try {
 			cfg.save(getConfigFile());
 		} catch (IOException e) {

@@ -53,7 +53,7 @@ public class SinglePlotGeneration {
 		// generating the stone
 		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
 			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
-				for (int y = 2; y < stonehight + grasshight; y++) {
+				for (int y = 1; y < stonehight + grasshight; y++) {
 					// Generating the stone blocks
 					Location stone = new Location(world, x, y, z);
 					world.getBlockAt(stone).setType(Material.STONE);
@@ -70,35 +70,37 @@ public class SinglePlotGeneration {
 				}
 			}
 		}
+		// Generating the boarder blocks
 		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
 			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
-				// Generating the boarder blocks
 				Location boarder = new Location(world, x, stonehight + grasshight, z);
 				world.getBlockAt(boarder).setType(boarderMaterial);
 			}
 		}
+
+		// Removing the other boarder Blocks
 		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
 			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
 				int y = stonehight + grasshight;
-				// Removing the other Blocks blocks
 				Location boarder = new Location(world, x, y, z);
 				world.getBlockAt(boarder).setType(Material.AIR);
 
 			}
 		}
+		//Create the Bedrock
 		for (int x = min.getBlockX(); x < max.getBlockX(); x++) {
 			for (int z = min.getBlockZ(); z < max.getBlockZ(); z++) {
-				//Create the Bedrock
-				Location bedrock = new Location(world, x, 1, z);
+				
+				Location bedrock = new Location(world, x, 0, z);
 				world.getBlockAt(bedrock).setType(Material.BEDROCK);
 
 			}
 		}
+		//Generate Materials and Ores
 		fillMaterials();
 		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
 			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
 				for (int y = 1; y < 32; y++) {
-					//Generate Materials
 					Random rn = new Random();
 					if (rn.nextInt(10) + 1 == 7) {
 						Location oreloc = new Location(world, x, y, z);
@@ -135,6 +137,12 @@ public class SinglePlotGeneration {
 		ores.add(Material.COAL_ORE);
 		
 	}
+	public static void unclaimPlot(int plotID, Player p) {
+		Location min = plotmysql.getPlotLocation(plotID).get(0);
+		Location max = plotmysql.getPlotLocation(plotID).get(1);
+		SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, PlotInformation.grasshight, PlotInformation.stonehight, PlotInformation.wayMaterial, PlotInformation.unclaimedBorderMaterial);
+		PlotGeneration.getCorrespondingPlotObject(plotmysql.getPlotID(p)).setOwner(null);
+	}
 	public static void claimPlot(Player p, int plotID) {
 		PlotGeneration.getCorrespondingPlotObject(plotID).setOwner(p);
 		setBoarder(plotID, true);
@@ -153,15 +161,15 @@ public class SinglePlotGeneration {
 		} else {
 			materialToFill = PlotInformation.unclaimedBorderMaterial;
 		}
-		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
-			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
-				// Generating the boarder blocks
+		// Generating the boarder blocks
+		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
+			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
 				Location boarder = new Location(world, x, stonehight + grasshight, z);
 				world.getBlockAt(boarder).setType(materialToFill);
 			}
 		}
 		//DELETING THE MIDDLE AND MAKE THE BOARDER COMPLETE
-		for (int x = min.getBlockX() + way; x < max.getBlockX() - way - 1; x++) {
+		for (int x = min.getBlockX() + way + 1; x < max.getBlockX() - way - 1; x++) {
 			for (int z = min.getBlockZ() + way + 1; z < max.getBlockZ() - way - 1; z++) {
 				Location boarder = new Location(world, x, stonehight + grasshight, z);
 				world.getBlockAt(boarder).setType(Material.AIR);

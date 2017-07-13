@@ -17,13 +17,7 @@ public class WorldGeneration {
 	public static void createVoidWorld(String worldname, CommandSender sender) {
 		
 		if (Bukkit.getWorld(worldname) == null) {
-			WorldCreator wc = new WorldCreator(worldname);
-//			String s = "-7118551805318844725";
-//			long l = Long.parseLong(s);
-//			wc.seed(l);
-			wc.type(WorldType.FLAT);
-			wc.generator("0;0;0");
-			wc.createWorld();
+			getWorldCreator(worldname).createWorld();
 			World w = Bukkit.getWorld(worldname);
 			if (w != null) {
 				sender.sendMessage("§8Welt erfolgreich erstellt!");
@@ -43,6 +37,12 @@ public class WorldGeneration {
 			sender.sendMessage("§8Worldname: §c" + worldname);
 		}
 		
+	}
+	public static WorldCreator getWorldCreator(String worldname) {
+		WorldCreator wc = new WorldCreator(worldname);
+		wc.type(WorldType.FLAT);
+		wc.generator("0;0;0");
+		return wc;
 	}
 	
 }

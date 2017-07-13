@@ -58,29 +58,6 @@ public class plotjava {
 			return PlotGeneration.getCorrespondingPlotObject(_plotid).getOwner().getName();
 		}
 	}
-	public static ArrayList<Location> getPlotLocation(int _plotid) {
-		ArrayList<Location> locs = new ArrayList<>();
-		Location min; 
-		Location max;
-		for (PlotObject plot : PlotGeneration.plotLists) {
-			//TODO: OUTDATED! plotmysql.getPlotLocation IS ALTERNATE
-		}
-		
-		return null;
-	}
-	public static Integer getLastPlotID() {
-		
-//		try {
-//			PreparedStatement ps = mysql.getConnection().prepareStatement("SELECT ID FROM Plots ORDER BY ID DESC Limit 1");
-//			ResultSet rs = ps.executeQuery();
-//			while(rs.next()) {
-//				return rs.getInt("ID");
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		return -1;
-	}
 	
 	
 	

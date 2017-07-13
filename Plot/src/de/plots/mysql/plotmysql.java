@@ -99,9 +99,6 @@ public class plotmysql {
 		if(getOwnerID(p) == -1) {
 			insertOwner(p);
 		}
-		
-		
-		
 		try {
 			PreparedStatement ps = mysql.getConnection().prepareStatement("INSERT INTO owner_plot (owner_id,plot_id) VALUES (?,?)");
 			ps.setInt(1, getOwnerID(p));
@@ -233,10 +230,7 @@ public class plotmysql {
 				p.sendMessage(getPlotLocation(plotid).size() + "");
 				
 				if (getPlotLocation(plotid) != null) {
-					Location min = getPlotLocation(plotid).get(0);
-					Location max = getPlotLocation(plotid).get(1);
-					SinglePlotGeneration.generateSinglePlot(PlotInformation.plotworld.getWorld(), min, max, PlotInformation.waysize, PlotInformation.grasshight, PlotInformation.stonehight, PlotInformation.wayMaterial, PlotInformation.unclaimedBorderMaterial);
-					PlotGeneration.getCorrespondingPlotObject(getPlotID(p)).setOwner(null);
+					SinglePlotGeneration.unclaimPlot(plotid, p);
 				} else {
 					p.sendMessage("Ein Fehler ist aufgetreten!");
 				}

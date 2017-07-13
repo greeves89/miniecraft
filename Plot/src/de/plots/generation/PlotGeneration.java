@@ -12,6 +12,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.material.MaterialData;
 
+import de.plots.config.PlotInformationConfig;
 import de.plots.main.main;
 import de.plots.mysql.mysql;
 import de.plots.mysql.plotmysql;
@@ -29,13 +30,11 @@ public class PlotGeneration {
 	public static void generatePlots(World world, Location middle, int gswidht, int plotamount, Material boarder, Material way, int waysize) {
 		
 		
-		
 //		mysql.deleteOwnerPlotTable();
 //		mysql.deletePlotsTable();
 		
 		for (int x = middle.getBlockX(); x < middle.getBlockX() + (gswidht * plotamount) - 1; x+=gswidht)  {
 			for (int z = middle.getBlockZ(); z < middle.getBlockZ() + (gswidht * plotamount) - 1; z += gswidht) {
-				System.out.println("test");
 				Location min = new Location(world, x, 0, z);
 				Location max = new Location(world, x + gswidht, 0, z + gswidht);
 				
