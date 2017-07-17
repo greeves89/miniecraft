@@ -1,7 +1,6 @@
 package de.plots.generation;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Location;
@@ -11,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import de.plots.mysql.plotmysql;
 import de.plots.utils.PlotInformation;
-import de.plots.utils.plotjava;
 
 public class SinglePlotGeneration {
 
@@ -30,8 +28,8 @@ public class SinglePlotGeneration {
 
 		// Removing every single Block at the Plot
 
-		for (int x = min.getBlockX(); x <= max.getBlockX() - 1; x++) {
-			for (int z = min.getBlockZ(); z <= max.getBlockZ() - 1; z++) {
+		for (int x = min.getBlockX(); x < max.getBlockX(); x++) {
+			for (int z = min.getBlockZ(); z < max.getBlockZ(); z++) {
 				for (int y = 0; y <= 130; y++) {
 					Location temp = new Location(world, x, y, z);
 					world.getBlockAt(temp).setType(Material.AIR);
@@ -53,7 +51,7 @@ public class SinglePlotGeneration {
 		// generating the stone
 		for (int x = min.getBlockX() + way; x < max.getBlockX() - way; x++) {
 			for (int z = min.getBlockZ() + way; z < max.getBlockZ() - way; z++) {
-				for (int y = 1; y < stonehight + grasshight; y++) {
+				for (int y = 1; y < stonehight; y++) {
 					// Generating the stone blocks
 					Location stone = new Location(world, x, y, z);
 					world.getBlockAt(stone).setType(Material.STONE);

@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 import de.plots.generation.PlotGeneration;
 import de.plots.mysql.plotmysql;
+import de.plots.utils.AdminClass;
 import de.plots.utils.plotjava;
 
 public class PlotBuildBreak implements Listener {
@@ -16,7 +17,7 @@ public class PlotBuildBreak implements Listener {
 	public void onBuild(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		if (!plotjava.isPlotOwnedByPlayer(p)) {
-			if (!p.hasPermission("server.admin")) {
+			if (!AdminClass.checkAdminmode(p)) {
 				e.setCancelled(true);
 			}
 			

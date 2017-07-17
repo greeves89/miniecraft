@@ -33,8 +33,8 @@ public class PlotGeneration {
 //		mysql.deleteOwnerPlotTable();
 //		mysql.deletePlotsTable();
 		
-		for (int x = middle.getBlockX(); x < middle.getBlockX() + (gswidht * plotamount) - 1; x+=gswidht)  {
-			for (int z = middle.getBlockZ(); z < middle.getBlockZ() + (gswidht * plotamount) - 1; z += gswidht) {
+		for (int x = middle.getBlockX(); x < middle.getBlockX() + (gswidht * plotamount); x+=gswidht)  {
+			for (int z = middle.getBlockZ(); z < middle.getBlockZ() + (gswidht * plotamount); z += gswidht) {
 				Location min = new Location(world, x, 0, z);
 				Location max = new Location(world, x + gswidht, 0, z + gswidht);
 				
@@ -48,6 +48,17 @@ public class PlotGeneration {
 				int plotid = plotmysql.getLastPlotID();
 				PlotObject plot = new PlotObject(min, max, plotid, null);
 				addPlottoList(plot);
+			}
+		}
+	}
+	public static void generate(Location begin, int plotsize, int waysize, int plotamount) {
+		for (int i = 0; i < plotamount; i++) {
+			for (int x = begin.getBlockX(); i < begin.getBlockX() + plotsize; x = x + plotsize)  {
+				for (int z = begin.getBlockZ(); z < begin.getBlockZ() + plotsize; z = z + plotsize) {
+					Location min = new Location(begin.getWorld(), x, 0, z);
+					Location max = new Location(begin.getWorld(), x + plotsize, 0, z + plotsize);
+					SinglePlotGeneration.generateSinglePlot(begin.getWorld(), min, max, waysize, PlotInformation.grasshight, PlotInformation.stonehight, PlotInformation.wayMaterial, PlotInformation.unclaimedBorderMaterial);
+				}
 			}
 		}
 	}

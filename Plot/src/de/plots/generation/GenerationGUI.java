@@ -105,7 +105,7 @@ public class GenerationGUI implements Listener {
 						ItemStack borderitem = e.getClickedInventory().getItem(8+5);
 						ItemStack claimedborderitem = e.getClickedInventory().getItem(8+7);
 						int waysize = Integer.parseInt(e.getClickedInventory().getItem(18+4).getItemMeta().getDisplayName());
-						int plotsize = Integer.parseInt(e.getClickedInventory().getItem(9*3+4).getItemMeta().getDisplayName()) * 2;
+						int plotsize = Integer.parseInt(e.getClickedInventory().getItem(9*3+4).getItemMeta().getDisplayName());
 						int plotamount = Integer.parseInt(e.getClickedInventory().getItem(9*4+4).getItemMeta().getDisplayName());
 						
 						PlotInformationConfig.update("waysize", waysize);
